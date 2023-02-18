@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const Pizza = require('./Pizza')
 
 mongoose.set('strictQuery', false)
-mongoose.connect('mongodb+srv://tarik:tarik212@cluster0.jtlop4i.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(`mongodb+srv://${process.env.MONGODB_UR}:${process.env.MONGODB_PW}@cluster0.jtlop4i.mongodb.net/?retryWrites=true&w=majority`,
+    { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('connected');
     })
@@ -41,7 +42,7 @@ const run = async () => {
         eachMessage: async ({ topic, partition, message }) => {
             await Pizza.create({
                 ...JSON.parse(message.value)
-            })    
+            })
         },
     })
 }

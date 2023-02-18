@@ -35,7 +35,7 @@ const makeOrder = (storeId, storeName) => {
         store_id: storeId,
         store_name: storeName,
         region: distrects[Math.floor(Math.random() * distrects.length)],
-        status: 'in-progress' ,
+        status: 'in-progress',
         additions: getRandomPizzaAdditions(),
         createdAt: new Date(),
     }
@@ -51,18 +51,32 @@ const sendDone = (order) => {
     }, processTime)
 }
 
+async function delay(ms) {
+    // return await for better async stack trace support in case of errors.
+    return await new Promise(resolve => setTimeout(resolve, ms));
+}
 
-const makeOrders = () => {
+
+const makeOrders = async () => {
     let i = 0;
     let order
+    await pizzaProducer.connect()
 
-    setInterval(async () => {
+    while (true) {
+        await delay(1000)
         order = makeOrder(stores[i % stores.length], storesNames[i % stores.length])
-        sendDone(order)
         console.log('sending order', order._id, i);
         await pizzaProducer.produce({ ...order, i })
+        sendDone(order)
         i++;
-    }, 2000)
+    }
+    // setInterval(() => {
+    //     try {
+
+    //     } catch (e) {
+    //         console.log(e)
+    //     }
+    // }, 1000)
 
 }
 

@@ -1,8 +1,9 @@
-const kafkaOrdersConsumer = require('../kafka/kafka-consumer')(process.env.PIZZA_TOPIC)
-const kafkaStoresConsumer = require('../kafka/kafka-consumer')(process.env.STORES_TOPIC)
+const kafkaOrdersConsumer = require('../kafka/kafka-consumer')(process.env.PIZZA_TOPIC, 0)
+const kafkaStoresConsumer = require('../kafka/kafka-consumer')(process.env.STORES_TOPIC, 1)
 const redis = require('redis')
 const keys = require('./redis-keys')
 const moment = require('moment')
+const kafkaConsumer = require('../kafka/kafka-consumer')
 const redisClient = redis.createClient()
 redisClient.connect()
 
@@ -82,71 +83,75 @@ const ordersByRegion = async (order) => {
 }
 
 
-kafkaOrdersConsumer.run({
-    eachMessage: async ({ topic, partition, message }) => {
-        try {
+kafkaOrdersConsumer.connect()
+    .then(res => {
+        kafkaOrdersConsumer.run({
+            eachMessage: async ({ topic, partition, message }) => {
+                try {
 
-            const order = JSON.parse(message.value)
-            console.log(order);
+                    const order = JSON.parse(message.value)
+                    console.log(order);
 
-            //orders count1
-            if (order.status === 'in-progress')
-                await redisClient.incr(keys.ORDERS_COUNT)
+                    //orders count1
+                    if (order.status === 'in-progress')
+                        await redisClient.incr(keys.ORDERS_COUNT)
 
-            // update orders region count
-            await ordersByRegion(order)
+                    // update orders region count
+                    await ordersByRegion(order)
 
-            // update process time lead board
-            await processLeadBoard(order)
+                    // update process time lead board
+                    await processLeadBoard(order)
 
-            // additions lead board
-            await additionsLeadBoard(order)
+                    // additions lead board
+                    await additionsLeadBoard(order)
 
-            // order by hour
-            await ordersByHour(order)
+                    // order by hour
+                    await ordersByHour(order)
 
-            // update proccess avg
-            await updateOrderProcessAvg(order)
+                    // update proccess avg
+                    await updateOrderProcessAvg(order)
 
-            // in progress orders count
-            if (order.status === 'in-progress')
-                await redisClient.incr(keys.ORDERS_INPROGRESS_COUNT)
-            else
-                await redisClient.decr(keys.ORDERS_INPROGRESS_COUNT)
-        }
-        catch (e) {
-            console.log(e);
-        }
-    },
-})
-
+                    // in progress orders count
+                    if (order.status === 'in-progress')
+                        await redisClient.incr(keys.ORDERS_INPROGRESS_COUNT)
+                    else
+                        await redisClient.decr(keys.ORDERS_INPROGRESS_COUNT)
+                }
+                catch (e) {
+                    console.log(e);
+                }
+            },
+        })
+    })
 
 
 // open stores count 
-kafkaStoresConsumer.run({
-    eachMessage: async ({ topic, partition, message }) => {
-        try {
+kafkaStoresConsumer.connect().then(res => {
+    kafkaStoresConsumer.run({
+        eachMessage: async ({ topic, partition, message }) => {
+            try {
 
-            const store = JSON.parse(message.value)
-            console.log(store, 'application server');
-            const prevStatus = await redisClient.hGet(keys.STORE_STATUS_KEY, String(store._id))
+                const store = JSON.parse(message.value)
+                console.log(store, 'application server');
+                const prevStatus = await redisClient.hGet(keys.STORE_STATUS_KEY, String(store._id))
 
-            // check if the stored value[isOpened] equal the current store value[isOpened]
-            if (prevStatus === String(store.isOpened)) {
-                return
-            }
+                // check if the stored value[isOpened] equal the current store value[isOpened]
+                if (prevStatus && prevStatus === String(store.isOpened)) {
+                    return
+                }
 
-            if (store.isOpened) {
-                redisClient.hSet(keys.STORE_STATUS_KEY, store._id, 1)
-                redisClient.hIncrBy(keys.STORE_STATUS_KEY, 'sum', 1)
+                if (store.isOpened) {
+                    redisClient.hSet(keys.STORE_STATUS_KEY, store._id, 1)
+                    redisClient.hIncrBy(keys.STORE_STATUS_KEY, keys.STORE_STATUS_V_SUM, 1)
+                }
+                else {
+                    redisClient.hSet(keys.STORE_STATUS_KEY, store._id, 0)
+                    redisClient.hIncrBy(keys.STORE_STATUS_KEY, keys.STORE_STATUS_V_SUM, -1)
+                }
             }
-            else {
-                redisClient.hSet(keys.STORE_STATUS_KEY, store._id, 0)
-                redisClient.hIncrBy(keys.STORE_STATUS_KEY, 'sum', -1)
+            catch (e) {
+                console.log(e);
             }
-        }
-        catch (e) {
-            console.log(e);
-        }
-    },
+        },
+    })
 })
