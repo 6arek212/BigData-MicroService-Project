@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/style.css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="space"></div>
+
+    <div class="container">
+
+        <div class="top-cards">
+            <div class="card">
+                <h1>Orders</h1>
+                <p>
+                    <%= ordersCount %>
+                </p>
+            </div>
+
+            <div class="space"></div>
+
+            <div class="card">
+                <h1>Orders In Progress</h1>
+                <p>
+                    <%= ordersInProgressCount %>
+                </p>
+            </div>
+
+            <div class="space"></div>
+
+
+            <div class="card">
+                <h1>Open Stores</h1>
+                <p>
+                    <%= opendStoresCount %>
+                </p>
+            </div>
+
+            <div class="space"></div>
+
+
+            <div class="card">
+                <h1>Process Avg</h1>
+                <p>
+                    <%= processAvg %>
+                </p>
+            </div>
+
+        </div>
+
+        <div class="space"></div>
+
+
+        <ul>
+            <% topAdditions.forEach(function(item,index){ %>
+                <li>
+                    <%= item.key %>
+                        <%= item.value %>
+                </li>
+                <% }) %>
+        </ul>
+        <div class="space"></div>
+
+        <ul>
+            <% orderByHour.forEach(function(item,index){ %>
+                <li>
+                    <%= item.key %>
+                        <%= item.value %>
+                </li>
+                <% }) %>
+        </ul>
+        <div class="space"></div>
+
+        <ul>
+            <% topProcessTimes.forEach(function(item,index){ %>
+                <li>
+                    <%= item.key %>
+                        <%= item.value %>
+                </li>
+                <% }) %>
+        </ul>
+
+        <div class="space"></div>
+
+        <ul>
+            <% distribution.forEach(function(item,index){ %>
+                <li>
+                    <%= item.key %>
+                        <%= item.value %>
+                </li>
+                <% }) %>
+        </ul>
+
+
+    </div>
+
+
+
+
+</body>
+
+</html>

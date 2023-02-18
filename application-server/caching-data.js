@@ -2,7 +2,7 @@ const kafkaOrdersConsumer = require('../kafka/kafka-consumer')(process.env.PIZZA
 const kafkaStoresConsumer = require('../kafka/kafka-consumer')(process.env.STORES_TOPIC)
 const redis = require('redis')
 const keys = require('./redis-keys')
-
+const moment = require('moment')
 const redisClient = redis.createClient()
 redisClient.connect()
 
@@ -19,14 +19,20 @@ const updateOrderProcessAvg = async (order) => {
     if (order.status !== 'done')
         return
 
-    const ordersCount = await redisClient.get('ordersCount')
-    const ordersInProgressCount = await redisClient.get('inProgressOrders')
-    const doneOrdersCoubt = ordersCount - ordersInProgressCount
-    const avg = await redisClient.get('processAvg')
+    const ordersCount = await redisClient.get(keys.ORDERS_COUNT)
+    const ordersInProgressCount = await redisClient.get(keys.ORDERS_INPROGRESS_COUNT)
+    const doneOrdersCount = ordersCount - ordersInProgressCount
+    const avg = await redisClient.get(keys.ORDERS_PROCESS_AVG) | 0
 
-    const timeToFinish = order.end_time - order.start_time
-    redisClient.set('processAvg', (avg * doneOrdersCoubt + timeToFinish) / (doneOrdersCoubt + 1))
+    // in seconds
+    const diff = new Date(order.finishedAt) - new Date(order.createdAt)
+    const finishTime = diff / 1000
+
+    console.log(ordersCount, ordersInProgressCount, doneOrdersCount, finishTime, avg, (avg * doneOrdersCount + finishTime) / (doneOrdersCount + 1));
+
+    redisClient.set(keys.ORDERS_PROCESS_AVG, (avg * doneOrdersCount + finishTime) / (doneOrdersCount + 1))
 }
+
 
 const additionsLeadBoard = async (order) => {
     if (order.status !== 'in-progress')
@@ -38,54 +44,79 @@ const additionsLeadBoard = async (order) => {
 }
 
 
+const ordersByHour = async (order) => {
+    if (order.status !== 'in-progress')
+        return
+    const date = new Date(order.createdAt)
+    date.setMinutes(0)
+    date.setMilliseconds(0)
+    const formatedDate = moment(date).format('yyyy/MM/DD HH:mm')
+    console.log(formatedDate);
+    await redisClient.zIncrBy(keys.ORDERS_BY_HOUR, 1, formatedDate)
+}
+
+
+
 const processLeadBoard = async (order) => {
     if (order.status !== 'done')
         return
 
-    const processTime = order.end_time - order.start_time
-    const currentProcessTime = await redisClient.zRevRank('orders:proccestime:lead', order.store_id)
+    // in seconds
+    const diff = new Date(order.finishedAt) - new Date(order.createdAt)
+    const finishTime = diff / 1000
+    console.log(order.store_id, finishTime, '...............');
+    const currentProcessTime = await redisClient.zScore(keys.ORDERS_PROCESS_TIME_LEADBOARD, String(order.store_id))
+    console.log('processLeadBoard', currentProcessTime, finishTime);
 
-    if (processTime < currentProcessTime)
-        await redisClient.zAdd('orders:proccestime:lead', addition, { score: processTime })
+    if (!currentProcessTime || finishTime < currentProcessTime)
+        await redisClient.zAdd(keys.ORDERS_PROCESS_TIME_LEADBOARD, { score: finishTime, value: String(order.store_id) })
+
 }
 
 
-const ordersByHour = async (order) => {
+
+const ordersByRegion = async (order) => {
     if (order.status !== 'in-progress')
         return
-
-    const date = new Date(order.createdAt)
-    redisClient.zIncrBy(keys.ORDERS_BY_HOUR, 1, date.getHours() + ':00')
+    await redisClient.hIncrBy(keys.ORDERS_BY_REGION, order.region, 1)
 }
 
 
 kafkaOrdersConsumer.run({
     eachMessage: async ({ topic, partition, message }) => {
-        const order = JSON.parse(message.value)
-        console.log(order, 'application server');
+        try {
 
-        //orders count1
-        await redisClient.incr(keys.ORDERS_COUNT)
+            const order = JSON.parse(message.value)
+            console.log(order);
 
+            //orders count1
+            if (order.status === 'in-progress')
+                await redisClient.incr(keys.ORDERS_COUNT)
 
-        // // update process time lead board
-        // await processLeadBoard(order)
+            // update orders region count
+            await ordersByRegion(order)
 
-        // additions lead board
-        await additionsLeadBoard(order)
+            // update process time lead board
+            await processLeadBoard(order)
 
-        // order by hour
-        await ordersByHour(order)
+            // additions lead board
+            await additionsLeadBoard(order)
 
-        // // update proccess avg
-        // await updateOrderProcessAvg(order)
+            // order by hour
+            await ordersByHour(order)
 
-        // in progress orders count
-        if (order.status === 'in-progress')
-            await redisClient.incr(keys.ORDERS_INPROGRESS_COUNT)
-        else
-            await redisClient.decr(keys.ORDERS_INPROGRESS_COUNT)
+            // update proccess avg
+            await updateOrderProcessAvg(order)
 
+            // in progress orders count
+            if (order.status === 'in-progress')
+                await redisClient.incr(keys.ORDERS_INPROGRESS_COUNT)
+            else
+                await redisClient.decr(keys.ORDERS_INPROGRESS_COUNT)
+        }
+        catch (e) {
+            console.log(e);
+        }
     },
 })
 

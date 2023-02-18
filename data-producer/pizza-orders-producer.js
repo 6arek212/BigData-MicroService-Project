@@ -34,15 +34,22 @@ const makeOrder = (storeId, storeName) => {
         _id: uuid.v4(),
         store_id: storeId,
         store_name: storeName,
-        distrect: distrects[Math.floor(Math.random() * distrects.length)],
-        status: Math.ceil(Math.random() * 2) == 1 ? 'in-progress' : 'done',
+        region: distrects[Math.floor(Math.random() * distrects.length)],
+        status: 'in-progress' ,
         additions: getRandomPizzaAdditions(),
-        createdAt: '',
-        proccessedAt: '',
-
+        createdAt: new Date(),
     }
 }
 
+
+
+const sendDone = (order) => {
+    const processTime = Math.floor((Math.random() + 1) * 5) * 1000
+    setTimeout(async () => {
+        console.log('order is done', order._id);
+        await pizzaProducer.produce({ ...order, finishedAt: new Date(), status: 'done' })
+    }, processTime)
+}
 
 
 const makeOrders = () => {
@@ -51,9 +58,11 @@ const makeOrders = () => {
 
     setInterval(async () => {
         order = makeOrder(stores[i % stores.length], storesNames[i % stores.length])
-        await pizzaProducer.produce(order)
+        sendDone(order)
+        console.log('sending order', order._id, i);
+        await pizzaProducer.produce({ ...order, i })
         i++;
-    }, 1000)
+    }, 2000)
 
 }
 

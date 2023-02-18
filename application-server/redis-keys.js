@@ -7,6 +7,9 @@ module.exports = {
     ORDERS_INPROGRESS_COUNT: 'orders:inprogress:count',
     ORDERS_ADDITION_POPULAR: 'orders:additions:popular',
     ORDERS_BY_HOUR: 'orders:by:hour',
+    ORDERS_PROCESS_AVG: 'orders:process:avg',
+    ORDERS_PROCESS_TIME_LEADBOARD: 'orders:process:leadboard',
+    ORDERS_BY_REGION: 'orders:by:region'
 
 
 
