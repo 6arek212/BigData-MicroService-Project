@@ -64,7 +64,7 @@ kafkaOrdersConsumer.run({
         const order = JSON.parse(message.value)
         console.log(order, 'application server');
 
-        //orders count
+        //orders count1
         await redisClient.incr(keys.ORDERS_COUNT)
 
 
@@ -91,6 +91,7 @@ kafkaOrdersConsumer.run({
 
 
 
+// open stores count 
 kafkaStoresConsumer.run({
     eachMessage: async ({ topic, partition, message }) => {
         try {
