@@ -1,17 +1,19 @@
 const uuid = require("uuid");
 require("dotenv").config({ path: '../.env' })
 const pizzaProducer = require('../kafka/kafka-producer')(process.env.PIZZA_TOPIC)
+const storeProducer = require('../kafka/kafka-producer')(process.env.STORES_TOPIC)
 
 
-const additions = ['Onions', 'Olives' ,'Mozzarella Cheese', 'Peppers', 'Tuna' , 'Sausage' , 'Pesto' , 'Tomato' , 'Black Olives']
+const additions = ['Onions', 'Olives', 'Mozzarella Cheese', 'Peppers', 'Tuna', 'Sausage', 'Pesto', 'Tomato', 'Black Olives']
 const storesNames = ['Macdonalds', 'BBB', 'KFC', 'Pizza Hut']
 const storesIds = ['1', '2', '3', '4']
-const distrects = ['south', 'haifa', 'center', 'north', 'dan']
+const distrects = ['South', 'Haifa', 'Center', 'North', 'Dan']
 
+
+// get a random array of pizza additions
 const getRandomPizzaAdditions = () => {
     const additionsOb = {};
     const r = Math.floor(Math.random() * additions.length);
-
 
     for (let index = 0; index < r; index++) {
         const d = Math.floor(Math.random() * additions.length)
@@ -19,8 +21,7 @@ const getRandomPizzaAdditions = () => {
     }
 
     const arr = []
-
-    for (x in additionsOb) {
+    for (let x in additionsOb) {
         arr.push(x)
     }
 
@@ -28,7 +29,7 @@ const getRandomPizzaAdditions = () => {
 }
 
 
-
+// make a pizza order
 const makeOrder = (storeId, storeName) => {
     return {
         _id: uuid.v4(),
@@ -42,8 +43,8 @@ const makeOrder = (storeId, storeName) => {
 }
 
 
-
-const sendDone = (order) => {
+// complete the order after a random amount of time
+const completeOrder = (order) => {
     const processTime = Math.floor((Math.random() + 1) * 5) * 1000
     setTimeout(async () => {
         console.log('order is done', order._id);
@@ -51,33 +52,41 @@ const sendDone = (order) => {
     }, processTime)
 }
 
+
+// delay for ms
 async function delay(ms) {
-    // return await for better async stack trace support in case of errors.
     return await new Promise(resolve => setTimeout(resolve, ms));
 }
 
 
-const makeOrders = async () => {
-    let i = 0;
-    let order
-    await pizzaProducer.connect()
+const makeOrderForStore = async (index) => {
+    await storeProducer.produce({ _id: storesIds[index], isOpened: 1 })
 
-    while (i < 50) {
+    let i = 0
+    while (i < Math.floor((Math.random() + 1) * 20)) {
         await delay(100)
-        order = makeOrder(storesIds[i % storesIds.length], storesNames[i % storesIds.length])
+        order = makeOrder(storesIds[index], storesNames[index])
         console.log('sending order', order._id, i);
         await pizzaProducer.produce({ ...order, i })
-        sendDone(order)
+        completeOrder(order)
         i++;
     }
-    // setInterval(() => {
-    //     try {
 
-    //     } catch (e) {
-    //         console.log(e)
-    //     }
-    // }, 1000)
-
+    await storeProducer.produce({ _id: storesIds[index], isOpened: 0 })
 }
 
-makeOrders()
+
+
+// 
+const run = async () => {
+    await pizzaProducer.connect()
+    await storeProducer.connect()
+
+    for (let storeIndex in storesIds) {
+        makeOrderForStore(storeIndex)
+    }
+}
+
+
+
+run()
