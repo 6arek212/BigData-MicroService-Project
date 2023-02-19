@@ -18,6 +18,10 @@ const App = () => {
       console.log(data);
       setStats(data)
     })
+
+    return () => {
+      socket.close()
+    }
   }, [])
 
 
@@ -77,7 +81,7 @@ const App = () => {
                       }
                     ]
                   }}
-                 
+
                   options={{
                     maintainAspectRatio: false,
                     responsive: true,

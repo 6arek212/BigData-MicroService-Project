@@ -1,13 +1,21 @@
-const kafkaOrdersConsumer = require('../kafka/kafka-consumer')(process.env.PIZZA_TOPIC, 0)
-const kafkaStoresConsumer = require('../kafka/kafka-consumer')(process.env.STORES_TOPIC, 1)
+const kafkaOrdersConsumer = require('../../kafka/kafka-consumer')(process.env.PIZZA_TOPIC, 0)
+const kafkaStoresConsumer = require('../../kafka/kafka-consumer')(process.env.STORES_TOPIC, 1)
 const redis = require('redis')
 const cron = require('node-cron');
 const fs = require('fs')
-const { makePairsFromArray , objectToArray } = require('./utils/helper-functions')
+const { makePairsFromArray, objectToArray } = require('../utils/helper-functions')
 const keys = require('./redis-keys')
 const moment = require('moment')
 const redisClient = redis.createClient()
-const io = require('./socketio-module')
+const io = require('../socketio-module')
+
+
+
+const lua = {
+    script: fs.readFileSync('./update_process_time.lua', 'utf8'),
+    sha: null
+};
+
 
 redisClient.connect()
 redisClient.on('connect', async () => {
@@ -25,8 +33,7 @@ cron.schedule('0 0 * * *', async () => {
 });
 
 
-io.waitForInit(() => {
-    console.log('aaaaaaaaa');
+io.onInit(() => {
     io.getInstance().on('connection', function (socket) {
         console.log('New client connected with id = ', socket.id);
         emitStats(socket)
@@ -50,10 +57,10 @@ const emitStats = async (socket) => {
     console.log('emitting');
     let sio = null
 
-    if(socket != null){
+    if (socket != null) {
         sio = socket
     }
-    else{
+    else {
         sio = io.getInstance()
     }
 
@@ -68,14 +75,6 @@ const emitStats = async (socket) => {
         distribution: objectToArray(distribution)
     })
 }
-
-
-var lua = {
-    script: fs.readFileSync('./update_process_time.lua', 'utf8'),
-    sha: null
-};
-
-
 
 
 
