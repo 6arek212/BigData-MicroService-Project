@@ -10,94 +10,153 @@
 </head>
 
 <body>
-    <div class="space"></div>
 
     <div class="container">
 
-        <div class="top-cards">
-            <div class="card">
-                <h1>Orders</h1>
-                <p>
-                    <%= ordersCount %>
-                </p>
+        <div class="inner-container">
+            <div class="top-cards">
+                <div class="card">
+                    <h2>Orders</h2>
+                    <div class="space"></div>
+                    <p>
+                        <%= ordersCount %>
+                    </p>
+                </div>
+
+                <div class="space"></div>
+
+                <div class="card">
+                    <h2>Orders In Progress</h2>
+                    <div class="space"></div>
+                    <p>
+                        <%= ordersInProgressCount %>
+                    </p>
+                </div>
+
+                <div class="space"></div>
+
+
+                <div class="card">
+                    <h2>Open Stores</h2>
+                    <div class="space"></div>
+                    <p>
+                        <%= opendStoresCount %>
+                    </p>
+                </div>
+
+                <div class="space"></div>
+
+
+                <div class="card">
+                    <h2>Process Avg</h2>
+                    <div class="space"></div>
+                    <p>
+                        <%= processAvg %>
+                    </p>
+                </div>
+
+
             </div>
 
             <div class="space"></div>
 
-            <div class="card">
-                <h1>Orders In Progress</h1>
-                <p>
-                    <%= ordersInProgressCount %>
-                </p>
+            <div class="leadboards">
+
+                <h1>Additions</h1>
+                <table>
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+
+                    <% Object.keys(topAdditions).forEach(function(item,index){ %>
+                        <tr>
+                            <td>
+                                <%= item %>
+                            </td>
+                            <td>
+                                <%= topAdditions[item] %>
+                            </td>
+                        </tr>
+
+                        <% }) %>
+                </table>
+
+
+
+              
+                <div class="space"></div>
+
+                <h1>Orders By Hour</h1>
+                <table>
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+
+                    <% Object.keys(orderByHour).forEach(function(item,index){ %>
+                        <tr>
+                            <td>
+                                <%= item %>
+                            </td>
+                            <td>
+                                <%= orderByHour[item] %>
+                            </td>
+                        </tr>
+
+                        <% }) %>
+                </table>
+
+
+               
+                <div class="space"></div>
+
+                <h1>Process Time Leadboard</h1>
+                <table>
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+
+                    <% Object.keys(topProcessTimes).forEach(function(item,index){ %>
+                        <tr>
+                            <td>
+                                <%= item %>
+                            </td>
+                            <td>
+                                <%= topProcessTimes[item] %>
+                            </td>
+                        </tr>
+
+                        <% }) %>
+                </table>
+
+
+                <div class="space"></div>
+
+                <h1>Distribution</h1>
+                <table>
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+
+                    <% Object.keys(distribution).forEach(function(item,index){ %>
+                        <tr>
+                            <td>
+                                <%= item %>
+                            </td>
+                            <td>
+                                <%= distribution[item] %>
+                            </td>
+                        </tr>
+
+                        <% }) %>
+                </table>
+                
+
             </div>
-
-            <div class="space"></div>
-
-
-            <div class="card">
-                <h1>Open Stores</h1>
-                <p>
-                    <%= opendStoresCount %>
-                </p>
-            </div>
-
-            <div class="space"></div>
-
-
-            <div class="card">
-                <h1>Process Avg</h1>
-                <p>
-                    <%= processAvg %>
-                </p>
-            </div>
-
-
         </div>
-
-        <div class="space"></div>
-
-
-        <ul>
-            <% topAdditions.forEach(function(item,index){ %>
-                <li>
-                    <%= item.key %>
-                        <%= item.value %>
-                </li>
-                <% }) %>
-        </ul>
-        <div class="space"></div>
-
-        <ul>
-            <% orderByHour.forEach(function(item,index){ %>
-                <li>
-                    <%= item.key %>
-                        <%= item.value %>
-                </li>
-                <% }) %>
-        </ul>
-        <div class="space"></div>
-
-        <ul>
-            <% topProcessTimes.forEach(function(item,index){ %>
-                <li>
-                    <%= item.key %>
-                        <%= item.value %>
-                </li>
-                <% }) %>
-        </ul>
-
-        <div class="space"></div>
-
-        <ul>
-            <% distribution.forEach(function(item,index){ %>
-                <li>
-                    <%= item.key %>
-                        <%= item.value %>
-                </li>
-                <% }) %>
-        </ul>
-
-
     </div>
 
 

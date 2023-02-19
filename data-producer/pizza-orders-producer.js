@@ -3,9 +3,9 @@ require("dotenv").config({ path: '../.env' })
 const pizzaProducer = require('../kafka/kafka-producer')(process.env.PIZZA_TOPIC)
 
 
-const additions = ['o', 'b', 'd', 'e']
-const stores = ['1', '2', '3', '4']
+const additions = ['Onions', 'Olives' ,'Mozzarella Cheese', 'Peppers', 'Tuna' , 'Sausage' , 'Pesto' , 'Tomato' , 'Black Olives']
 const storesNames = ['Macdonalds', 'BBB', 'KFC', 'Pizza Hut']
+const storesIds = ['1', '2', '3', '4']
 const distrects = ['south', 'haifa', 'center', 'north', 'dan']
 
 const getRandomPizzaAdditions = () => {
@@ -62,9 +62,9 @@ const makeOrders = async () => {
     let order
     await pizzaProducer.connect()
 
-    while (true) {
-        await delay(1000)
-        order = makeOrder(stores[i % stores.length], storesNames[i % stores.length])
+    while (i < 50) {
+        await delay(100)
+        order = makeOrder(storesIds[i % storesIds.length], storesNames[i % storesIds.length])
         console.log('sending order', order._id, i);
         await pizzaProducer.produce({ ...order, i })
         sendDone(order)
