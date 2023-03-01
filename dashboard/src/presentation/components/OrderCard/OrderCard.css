@@ -1,0 +1,31 @@
+.orderCard-container {
+  width: 217px;
+  height: 54px;
+  box-shadow: 4px 4px 32px rgba(181, 159, 132, 0.16);
+  border-radius: 7px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+}
+
+.order-card-content {
+  padding: 8px 12px;
+}
+
+.order-date {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #00000063;
+  font-size: 12px;
+}
+.activeMarker {
+  position: absolute;
+  left: 0;
+  background: #f3eac0;
+  height: 100%;
+  width: 2%;
+  border-bottom-left-radius: 7px;
+  border-top-left-radius: 7px;
+}

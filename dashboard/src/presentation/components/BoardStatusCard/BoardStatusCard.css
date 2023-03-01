@@ -1,0 +1,28 @@
+.board-statuscard-container {
+  width: 185px;
+  height: 105px;
+  background: #ffffff;
+
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.08), 3px 3px 30px rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  padding: 7px 10px;
+}
+.board-statuscard-container h3 {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.55);
+  font-weight: 500;
+}
+.board-statuscard-icontotal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.board-statuscard-icontotal span {
+  font-weight: 500;
+  font-size: 40px;
+}
+
+.board-statuscard-icontotal img {
+  width: 43.42px;
+  height: 41px;
+}

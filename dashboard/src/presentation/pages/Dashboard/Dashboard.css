@@ -1,0 +1,25 @@
+.board-status-cards {
+  display: flex;
+  padding-left: 20px;
+  margin-top: 15px;
+  gap: 50px;
+}
+
+.charts-container {
+  display: flex;
+  padding-left: 20px;
+  gap: 30px;
+  margin-top: 20px;
+  /* border: 2px solid red; */
+}
+.line-chart-container {
+  /* border: 2px solid red; */
+  position: relative;
+  left: 20px;
+  margin-top: 15px;
+  padding: 2px;
+  width: 92.5%;
+  height: 200px;
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.08), 3px 3px 30px rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+}

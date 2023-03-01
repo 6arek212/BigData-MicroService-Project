@@ -1,0 +1,80 @@
+.ordersPage-container {
+  height: 100%;
+  display: flex;
+  position: relative;
+}
+.orders-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(192, 192, 192, 0.15);
+  width: 290px;
+  height: 100%;
+  padding: 5px 8px;
+}
+
+.orders-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 20px;
+  height: 100%;
+}
+
+.search-orders-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.select-option {
+  width: 146px;
+  height: 56px;
+
+  padding: 2px 4px 10px 0;
+}
+
+.search-orders-wrapper span {
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.select-branch-options {
+  width: 120px;
+  height: 33px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+}
+.select-date-options {
+  border-radius: 2px;
+}
+
+.order-info-row {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+.order-info-container {
+  position: relative;
+  top: 30px;
+  height: 100%;
+  width: 100%;
+  margin-left: 5px;
+  /* border: 2px solid red; */
+  padding: 5px 10px;
+}
+.order-info-container h2 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  margin-left: 10px;
+
+  color: rgba(0, 0, 0, 0.81);
+}
+
+.order-items {
+  overflow-y: scroll;
+  /* height: 77%; */
+}

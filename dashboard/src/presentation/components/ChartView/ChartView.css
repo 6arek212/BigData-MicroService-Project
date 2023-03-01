@@ -1,0 +1,32 @@
+.chart-view-container {
+  /* border: 2px solid red; */
+  /* width: 303px;
+  height: 207px; */
+  width: 303px;
+  height: 207px;
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.08), 3px 3px 30px rgba(0, 0, 0, 0.08);
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  /* padding: 12px 12px 15px 12px; */
+}
+
+.chart-view-container h3 {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.85);
+  padding: 5px 15px 5px;
+  margin: 0;
+}
+
+.ColumnChart-container {
+  position: absolute;
+  right: -10px;
+  /* right: -50px; */
+}
+
+.PieChart-container {
+  position: absolute;
+  left: 7px;
+}

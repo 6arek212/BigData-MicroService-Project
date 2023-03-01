@@ -1,0 +1,58 @@
+.navbar-container {
+  width: 81px;
+  height: 693px;
+  background: #dba24a;
+  /* background: #1e2640; */
+  box-shadow: 12px 12px 40px rgba(181, 159, 132, 0.38);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  position: relative;
+  left: 15px;
+  /* top: 75px; */
+  box-shadow: 12px 12px 40px rgba(181, 159, 132, 0.38);
+}
+.navbar-container .userLogo {
+  width: 51px;
+  height: 51px;
+  border: 1px solid #f9f6f0;
+  border-radius: 55px;
+  margin: 34px 10px 0 0;
+}
+.nav-links {
+  width: 100%;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60%;
+  padding: 9px 10px 0 0;
+  gap: 2em;
+  margin: 0;
+}
+.nav-link img {
+  width: 29px;
+  height: 29px;
+  align-items: center;
+  margin-top: 2px;
+}
+
+.logout-wrapper {
+  position: absolute;
+  bottom: 37px;
+  padding-right: 10px;
+}
+.nav-links li {
+  width: 49px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+}
+.nav-links .active {
+  background: #f3eac0;
+}
