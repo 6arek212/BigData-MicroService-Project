@@ -54,6 +54,8 @@ const emitStats = async (socket) => {
     const orderByHour = makePairsFromArray(await redisClient.sendCommand(['ZREVRANGE', keys.ORDERS_BY_HOUR, '0', '5', 'withscores']))
     const topProcessTimes = makePairsFromArray(await redisClient.sendCommand(['ZRANGE', keys.ORDERS_PROCESS_TIME_LEADBOARD, '0', '5', 'withscores']))
 
+    orderByHour.sort((a, b) => a.key.localeCompare(b.key))
+
     console.log('emitting');
     let sio = null
 

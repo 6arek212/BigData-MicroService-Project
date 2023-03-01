@@ -61,9 +61,9 @@ async function delay(ms) {
 
 const makeOrderForStore = async (index) => {
     await storeProducer.produce({ _id: storesIds[index], isOpened: 1 })
-
+    let end = Math.floor((Math.random() + 1) * 20)
     let i = 0
-    while (i < Math.floor((Math.random() + 1) * 20)) {
+    while (i < end) {
         await delay(100)
         order = makeOrder(storesIds[index], storesNames[index])
         console.log('sending order', order._id, i);
