@@ -9,8 +9,13 @@ import OrderStatusCard from "../../components/OrderStatusCard/OrderStatusCard";
 import OrderItemInfo from "../../components/OrderItemInfo/OrderItemInfo";
 import ItemToppings from "../../components/ItemToppings/ItemToppings";
 
+import TextField from "@mui/material/TextField";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+
 function Orders() {
-  const [startDate, setStartDate] = useState(new Date());
+  const [date, setDate] = useState(new Date());
   const [showToppings, setShowToppings] = useState(false);
   const options = [
     { value: "Haifa", label: "Haifa" },
@@ -32,10 +37,20 @@ function Orders() {
             <div className="select-option">
               <span>Date</span>
               <div className="select-date-options">
-                <DatePicker
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
-                />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DesktopDatePicker
+                    inputFormat="MM/DD/YYYY"
+                    value={date}
+                    onChange={(value) => setDate(value)}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        size="small"
+                        sx={{ width: "100%" }}
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
               </div>
             </div>
           </div>

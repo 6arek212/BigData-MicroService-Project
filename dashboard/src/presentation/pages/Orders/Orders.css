@@ -78,3 +78,8 @@
   overflow-y: scroll;
   /* height: 77%; */
 }
+.select-date-options button {
+  width: 15px;
+  height: 10px;
+  padding-right: 15px;
+}

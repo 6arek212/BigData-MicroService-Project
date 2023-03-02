@@ -9,8 +9,8 @@ function AnalyzeTable() {
         <li class="table-header">
           <div class="col col-1">Antecedent</div>
           <div class="col col-2">Consequent</div>
-          <div class="col col-3">Support</div>
-          <div class="col col-4">Confidence</div>
+          <div class="col col-3">Support (%)</div>
+          <div class="col col-4">Confidence (%)</div>
         </li>
 
         <TableRow
