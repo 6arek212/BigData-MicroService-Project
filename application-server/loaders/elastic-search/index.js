@@ -14,7 +14,9 @@ module.exports = async ({ clearOnStart }) => {
     const queries = makeElasticSearchQueries(client)
 
     if (clearOnStart) {
-        await client.indices.delete({ index: 'orders' })
+        try {
+            await client.indices.delete({ index: 'orders' })
+        } catch (e) { }
     }
     await queries.createIndex()
 
