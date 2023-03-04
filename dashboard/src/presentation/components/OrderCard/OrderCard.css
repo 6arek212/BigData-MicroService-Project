@@ -1,7 +1,8 @@
 .orderCard-container {
   width: 217px;
   height: 54px;
-  box-shadow: 4px 4px 32px rgba(181, 159, 132, 0.16);
+  /* box-shadow: 4px 4px 32px rgba(181, 159, 132, 0.16); */
+  box-shadow: 6px 6px 32px rgba(181, 159, 132, 0.2);
   border-radius: 7px;
   font-size: 15px;
   font-weight: 500;
