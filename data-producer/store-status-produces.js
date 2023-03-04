@@ -1,4 +1,4 @@
-require("dotenv").config({ path: '../.env' })
+require("dotenv").config()
 const storeProducer = require('../kafka/kafka-producer')(process.env.STORES_TOPIC)
 
 

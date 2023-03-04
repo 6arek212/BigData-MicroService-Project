@@ -1,5 +1,5 @@
 const uuid = require("uuid");
-require("dotenv").config({ path: '../.env' })
+require("dotenv").config()
 const pizzaProducer = require('../kafka/kafka-producer')(process.env.PIZZA_TOPIC)
 const storeProducer = require('../kafka/kafka-producer')(process.env.STORES_TOPIC)
 
@@ -44,12 +44,11 @@ const makeOrder = (storeId, storeName) => {
 
 
 // complete the order after a random amount of time
-const completeOrder = (order) => {
+const completeOrder = async (order) => {
     const processTime = Math.floor((Math.random() + 1) * 5) * 1000
-    setTimeout(async () => {
-        console.log('order is done', order._id);
-        await pizzaProducer.produce({ ...order, finishedAt: new Date(), status: 'done' })
-    }, processTime)
+    await delay(processTime)
+    await pizzaProducer.produce({ ...order, finishedAt: new Date(), status: 'done' })
+    console.log('order is done', order._id);
 }
 
 
@@ -60,12 +59,13 @@ async function delay(ms) {
 
 
 const makeOrderForStore = async (index) => {
+    console.log('opened store', storesIds[index]);
     await storeProducer.produce({ _id: storesIds[index], isOpened: 1 })
     let end = Math.floor((Math.random() + 1) * 20)
     let i = 0
     while (i < end) {
         await delay(100)
-        order = makeOrder(storesIds[index], storesNames[index])
+        const order = makeOrder(storesIds[index], storesNames[index])
         console.log('sending order', order._id, i);
         await pizzaProducer.produce({ ...order, i })
         completeOrder(order)
@@ -73,6 +73,7 @@ const makeOrderForStore = async (index) => {
     }
 
     await storeProducer.produce({ _id: storesIds[index], isOpened: 0 })
+    console.log('close store', storesIds[index]);
 }
 
 

@@ -8,4 +8,5 @@ module.exports = {
         username: 'kivalmel',
         password: 'SolTfOYwpnOnp3nUlEiRfdMzSrj1cxQP',
     },
+    connectionTimeout: 3000
 }

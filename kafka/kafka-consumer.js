@@ -5,14 +5,14 @@ const kafka = new Kafka(config)
 
 
 
-module.exports = (topic, gid = 0) => {
+module.exports = (topic, gid) => {
     const consumer = kafka.consumer({ groupId: `kivalmel-${gid}` })
 
     return {
-        connect: consumer.connect,
-        run: async (obj) => {
+        connect: async () => {
+            await consumer.connect()
             await consumer.subscribe({ topic, fromBeginning: true })
-            await consumer.run(obj)
-        }
+        },
+        run: consumer.run
     }
 }
