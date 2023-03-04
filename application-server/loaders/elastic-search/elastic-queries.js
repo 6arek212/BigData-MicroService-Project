@@ -5,16 +5,6 @@ const moment = require('moment');
 const makeElasticSearchQueries = (client) => {
 
 
-    const createIndex = async () => {
-        try {
-
-            await client.indices.create({ index: 'orders' })
-        } catch (e) {
-
-        }
-    }
-
-
     const searchOrdersByDate = async ({ startDate, endDate, storeName, page, pageSize }) => {
         const filter = []
         const must = []
@@ -87,7 +77,6 @@ const makeElasticSearchQueries = (client) => {
 
 
     return {
-        createIndex,
         searchOrdersByDate
     }
 }
