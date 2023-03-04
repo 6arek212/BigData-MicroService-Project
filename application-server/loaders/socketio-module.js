@@ -7,13 +7,13 @@ module.exports = ({ server, onEmit }) => {
 
     const socket = io(server)
 
-    socket.on('connection', async function (socket) {
-        console.log('New client connected with id = ', socket.id);
+    socket.on('connection', async function (clientSocket) {
+        console.log('New client connected with id = ', clientSocket.id);
         const data = await onEmit()
-        socket.emit('stats', data)
+        clientSocket.emit('stats', data)
 
-        socket.on('disconnect', function (reason) {
-            console.log('A client disconnected with id = ', socket.id, " reason ==> ", reason);
+        clientSocket.on('disconnect', function (reason) {
+            console.log('A client disconnected with id = ', clientSocket.id, " reason ==> ", reason);
         });
     });
 
