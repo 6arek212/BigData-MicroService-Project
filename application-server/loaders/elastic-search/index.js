@@ -1,18 +1,22 @@
 const { Client } = require('@elastic/elasticsearch')
-const { makeElasticSearchQueries } = require('./elastic-queries')
+const { makeElasticSearchQueries } = require('./elastic-queries');
+const configs = require('../../configs');
 
-const elasticUrl = "http://localhost:9200";
-const client = new Client({ node: elasticUrl });
+const client = new Client({ node: configs.elasticsearchURL });
 
 
 
-module.exports = async () => {
+module.exports = async ({ clearOnStart }) => {
 
     const health = await client.cluster.health({});
     console.log("Successfully connected to ElasticSearch");
 
     const queries = makeElasticSearchQueries(client)
 
+    if (clearOnStart) {
+        await client.indices.delete({ index: 'orders' })
+    }
+    await queries.createIndex()
 
     // const startDate = moment().startOf('day').format();
     // const endDate = moment().endOf('day').format();

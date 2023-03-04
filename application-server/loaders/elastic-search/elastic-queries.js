@@ -6,13 +6,30 @@ const makeElasticSearchQueries = (client) => {
 
 
     const createIndex = async () => {
-        await client.indices.create({ index: 'orders' })
+        try {
+
+            await client.indices.create({ index: 'orders' })
+        } catch (e) {
+
+        }
     }
 
 
-    const searchOrdersByDate = async ({ startDate, endDate, storeName }) => {
+    const searchOrdersByDate = async ({ startDate, endDate, storeName, page, pageSize }) => {
         const filter = []
         const must = []
+        const q = {
+            index: 'orders',
+            query: {
+                bool: {
+                    must: must,
+                    filter: filter
+                },
+            },
+            size: 30,
+            from: 0,
+        }
+
 
         if (storeName) {
             must.push({
@@ -32,17 +49,13 @@ const makeElasticSearchQueries = (client) => {
             })
         }
 
+        if (page && pageSize) {
+            q.size = pageSize
+            q.from = (page - 1) * pageSize
+        }
 
 
-        const data = await client.search({
-            index: 'orders',
-            query: {
-                bool: {
-                    must: must,
-                    filter: filter
-                }
-            }
-        })
+        const data = await client.search(q)
 
         return data.hits.hits
     }
@@ -75,7 +88,6 @@ const makeElasticSearchQueries = (client) => {
 
     return {
         createIndex,
-        createTestOrders,
         searchOrdersByDate
     }
 }

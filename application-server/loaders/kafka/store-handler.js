@@ -1,4 +1,6 @@
-const kafkaStoresConsumer = require('../../../kafka/kafka-consumer')(process.env.STORES_TOPIC, 1)
+const configs = require('../../configs')
+
+const kafkaStoresConsumer = require('../../../kafka/kafka-consumer')(configs.storesTopic, 1)
 
 
 

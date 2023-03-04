@@ -1,4 +1,6 @@
-const kafkaOrdersConsumer = require('../../../kafka/kafka-consumer')(process.env.PIZZA_TOPIC, 0)
+const configs = require('../../configs')
+
+const kafkaOrdersConsumer = require('../../../kafka/kafka-consumer')(configs.pizzaTopic, 0)
 
 
 module.exports = async (db, eventEmitter) => {
