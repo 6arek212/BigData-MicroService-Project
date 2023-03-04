@@ -1,24 +1,17 @@
 const { objectToArray, makePairsFromArray } = require("../../utils/helper-functions")
-const cron = require('node-cron');
 const fs = require('fs')
 const keys = require('./redis-keys')
 const moment = require('moment')
+const path = require('path')
 
 
 
 
 const lua = {
-    script: fs.readFileSync('./update_process_time.lua', 'utf8'),
+    script: fs.readFileSync(path.join(__dirname, 'update_process_time.lua'), 'utf8'),
     sha: null
 };
 
-
-
-// clear redis every day at 00:00
-// cron.schedule('0 0 * * *', async () => {
-//     console.log('running a task every minute');
-//     await redisClient.flushAll()
-// });
 
 
 

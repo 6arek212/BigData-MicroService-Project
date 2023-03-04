@@ -1,5 +1,5 @@
 
-const cachingData = require('./caching-data')
+const cachingData = require('./redis-queries')
 const redis = require('redis')
 const redisClient = redis.createClient()
 

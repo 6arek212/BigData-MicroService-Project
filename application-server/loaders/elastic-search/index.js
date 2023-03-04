@@ -1,6 +1,5 @@
 const { Client } = require('@elastic/elasticsearch')
 const { makeElasticSearchQueries } = require('./elastic-queries')
-const moment = require('moment')
 
 const elasticUrl = "http://localhost:9200";
 const client = new Client({ node: elasticUrl });

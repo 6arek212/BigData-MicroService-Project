@@ -5,10 +5,10 @@ const socketIo = require('./socketio-module')
 const elasticsearch = require('./elastic-search');
 
 
-
+// dependency Injection
 module.exports = async ({ expressApp, server }) => {
 
-    const dbRedis = await rediesModule({ clearOnStart: true })
+    const dbRedis = await rediesModule({ clearOnStart: false })
     console.log('Redis module loaded');
 
     const dbElastic = await elasticsearch()
