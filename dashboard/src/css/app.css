@@ -25,9 +25,9 @@ body {
 
 .page-container {
   min-width: 1120px;
-  /* flex: 1; */
-  min-height: 90vh;
-  padding: 20px;
+
+  height: 783px;
+
   position: relative;
   background: white;
   -webkit-box-shadow: 12px 12px 40px 0px rgba(181, 159, 132, 0.38);

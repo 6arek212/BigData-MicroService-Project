@@ -1,4 +1,6 @@
-
+.dashboard-container {
+  padding: 20px;
+}
 
 .board-status-cards {
   display: flex;
