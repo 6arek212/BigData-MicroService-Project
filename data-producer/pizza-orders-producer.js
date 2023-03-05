@@ -6,8 +6,26 @@ const storeProducer = require('../kafka/kafka-producer')(process.env.STORES_TOPI
 
 const additions = ['Onions', 'Olives', 'Mozzarella Cheese', 'Peppers', 'Tuna', 'Sausage', 'Pesto', 'Tomato', 'Black Olives']
 const storesNames = ['Macdonalds', 'BBB', 'KFC', 'Pizza Hut']
-const storesIds = ['1', '2', '3', '4']
-const distrects = ['South', 'Haifa', 'Center', 'North', 'Dan']
+const regions = ['South', 'Haifa', 'Center', 'North', 'Dan']
+const persons = [
+    {
+        name: 'John Doe',
+        address: '123 Main St',
+        phone: '555-555-5555'
+    },
+    {
+        name: 'Wissam Kabaha',
+        address: 'Bartaa',
+        phone: '555-555-5555'
+    },
+    {
+        name: 'Tarik Husin',
+        address: 'Baqa',
+        phone: '0525145565'
+    }
+]
+
+
 
 
 // get a random array of pizza additions
@@ -30,15 +48,17 @@ const getRandomPizzaAdditions = () => {
 
 
 // make a pizza order
-const makeOrder = (storeId, storeName) => {
+const makeOrder = (storeId, storeName, region) => {
+    const person = persons[Math.floor(Math.random() * persons.length)]
     return {
         _id: uuid.v4(),
         store_id: storeId,
         store_name: storeName,
-        region: distrects[Math.floor(Math.random() * distrects.length)],
+        region: region,
         status: 'in-progress',
         additions: getRandomPizzaAdditions(),
         createdAt: new Date(),
+        ...person
     }
 }
 
@@ -58,22 +78,43 @@ async function delay(ms) {
 }
 
 
-const makeOrderForStore = async (index) => {
-    console.log('opened store', storesIds[index]);
-    await storeProducer.produce({ _id: storesIds[index], isOpened: 1 })
+const makeOrderForStore = async ({ _id, store_name, region }) => {
+    console.log('opened store', _id, store_name, region);
+    await storeProducer.produce({ _id: _id, isOpened: 1 })
+
     let end = Math.floor((Math.random() + 1) * 20)
     let i = 0
-    while (i < end) {
-        await delay(100)
-        const order = makeOrder(storesIds[index], storesNames[index])
+
+    while (i < 1) {
+        await delay(1000)
+        const order = makeOrder(_id, store_name, region)
         console.log('sending order', order._id, i);
-        await pizzaProducer.produce({ ...order, i })
+
+        await pizzaProducer.produce(order)
+
         completeOrder(order)
         i++;
     }
 
-    await storeProducer.produce({ _id: storesIds[index], isOpened: 0 })
-    console.log('close store', storesIds[index]);
+    await storeProducer.produce({ _id: _id, isOpened: 0 })
+    console.log('close store', _id, store_name, region);
+}
+
+
+
+const makeStores = (storeName) => {
+    // open a store in each district
+    const stores = []
+    let k = 0
+    for (let rg of regions) {
+        stores.push({
+            _id: storeName + `-id-${k}`,
+            store_name: storeName,
+            region: rg
+        })
+        k++
+    }
+    return stores
 }
 
 
@@ -83,8 +124,14 @@ const run = async () => {
     await pizzaProducer.connect()
     await storeProducer.connect()
 
-    for (let storeIndex in storesIds) {
-        makeOrderForStore(storeIndex)
+    let stores
+    for (let name of storesNames) {
+        // make stores for the company 
+        stores = makeStores(name)
+
+        for (let st of stores) {
+            makeOrderForStore(st)
+        }
     }
 }
 

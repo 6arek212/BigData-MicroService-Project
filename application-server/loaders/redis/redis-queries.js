@@ -61,12 +61,19 @@ module.exports = async (redisClient) => {
 
 
     const updateStoreStatus = async ({ _id, isOpened }) => {
-        await redisClient.zAdd(keys.STORE_STATUS_KEY, { value: _id + '', score: isOpened })
+        // console.log('updateStoreStatus', _id, isOpened);
+        // await redisClient.zAdd(keys.STORE_STATUS_KEY, { value: _id, score: isOpened })
+        if (isOpened)
+            await redisClient.incr(keys.STORES_COUNTER)
+        else
+            await redisClient.decr(keys.STORES_COUNTER)
     }
 
 
     const fetchStats = async () => {
-        const opendStoresCount = await redisClient.zCount(keys.STORE_STATUS_KEY, 1, 1) || 0
+        // const opendStoresCount11 = await redisClient.zCount(keys.STORE_STATUS_KEY, 1, 1) || 0
+        // console.log(opendStoresCount11);
+        const opendStoresCount = await redisClient.get(keys.STORES_COUNTER) || 0
         const ordersCount = await redisClient.get(keys.ORDERS_COUNT) || 0
         const ordersInProgressCount = await redisClient.get(keys.ORDERS_INPROGRESS_COUNT) || 0
         const processAvg = (await redisClient.get(keys.ORDERS_PROCESS_AVG) / (ordersCount - ordersInProgressCount)) || 0

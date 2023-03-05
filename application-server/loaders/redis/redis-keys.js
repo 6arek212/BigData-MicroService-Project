@@ -1,6 +1,7 @@
 
 
 module.exports = {
+    STORES_COUNTER: 'stores:counter',
     STORE_STATUS_KEY: 'stores:status',
     STORE_STATUS_V_SUM: 'sum',
     ORDERS_COUNT: 'orders:count',
