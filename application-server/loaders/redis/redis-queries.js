@@ -58,79 +58,6 @@ module.exports = async (redisClient) => {
     }
 
 
-    const updateOrderProcessTime = async (order) => {
-        if (order.status !== 'done')
-            return
-
-        // in seconds
-        const diff = new Date(order.finishedAt) - new Date(order.createdAt)
-        const finishTime = diff / 1000
-        await redisClient.incrByFloat(keys.ORDERS_PROCESS_AVG, finishTime)
-    }
-
-
-    const additionsLeadBoard = async (order) => {
-        if (order.status !== 'in-progress')
-            return
-
-        for (let addition of order.additions) {
-            await redisClient.zIncrBy(keys.ORDERS_ADDITION_POPULAR, 1, addition)
-        }
-    }
-
-    const ordersByHour = async (order) => {
-        if (order.status !== 'in-progress')
-            return
-        const date = new Date(order.createdAt)
-        date.setMinutes(0)
-        date.setMilliseconds(0)
-        const formatedDate = moment(date).format('yyyy/MM/DD HH:mm')
-        console.log(formatedDate);
-        await redisClient.zIncrBy(keys.ORDERS_BY_HOUR, 1, formatedDate)
-    }
-
-
-
-    const processLeadBoard = async (order) => {
-        if (order.status !== 'done')
-            return
-
-        // in sec
-        const diff = new Date(order.finishedAt) - new Date(order.createdAt)
-        const finishTime = diff / (1000)
-        console.log(order.store_id, finishTime, '...............')
-
-        await redisClient.eval(lua.script,
-            {
-                keys: [keys.ORDERS_PROCESS_TIME_LEADBOARD, order.region],
-                arguments: [finishTime + '']
-            }
-        )
-    }
-
-
-    // handle counters by regions
-    const ordersByRegion = async (order) => {
-        if (order.status !== 'in-progress')
-            return
-        await redisClient.hIncrBy(keys.ORDERS_BY_REGION, order.region, 1)
-    }
-
-
-
-    const updateOrdersCount = async () => {
-        await redisClient.multi()
-            .incr(keys.ORDERS_COUNT)
-            .incr(keys.ORDERS_INPROGRESS_COUNT)
-            .exec()
-    }
-
-
-    const decreaseInProgressOrdersCount = async () => {
-        await redisClient.decr(keys.ORDERS_INPROGRESS_COUNT)
-    }
-
-
 
 
     const updateStoreStatus = async ({ _id, isOpened }) => {
@@ -170,14 +97,7 @@ module.exports = async (redisClient) => {
 
 
     return {
-        updateOrderProcessTime,
-        additionsLeadBoard,
-        ordersByHour,
-        processLeadBoard,
-        ordersByRegion,
         updateStoreStatus,
-        updateOrdersCount,
-        decreaseInProgressOrdersCount,
         fetchStats,
         clear,
         inProgressFun,
