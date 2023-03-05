@@ -8,10 +8,10 @@ const elasticsearch = require('./elastic-search');
 // dependency Injection
 module.exports = async ({ expressApp, server }) => {
 
-    const dbRedis = await rediesModule({ clearOnStart: true })
+    const dbRedis = await rediesModule({ clearOnStart: false })
     console.log('Redis module loaded');
 
-    const dbElastic = await elasticsearch({ clearOnStart: true })
+    const dbElastic = await elasticsearch({ clearOnStart: false })
     console.log('Elasticsearch module loaded');
 
 

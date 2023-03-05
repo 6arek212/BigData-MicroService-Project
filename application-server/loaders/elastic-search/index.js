@@ -18,7 +18,10 @@ module.exports = async ({ clearOnStart }) => {
             await client.indices.delete({ index: 'orders' })
         } catch (e) { }
     }
-    await client.indices.create({ index: 'orders' })
+    try {
+        await client.indices.create({ index: 'orders' })
+    }
+    catch (e) { }
 
     return queries
 }
