@@ -14,7 +14,7 @@ function Dashboard() {
   const [date, setDate] = useState(new Date());
 
   const options = {
-    title: "Orders during the day",
+    title: "Orders",
     curveType: "function",
     legend: { position: "bottom" },
     series: [{ color: "#1E2640" }],
@@ -66,21 +66,21 @@ function Dashboard() {
           <ChartView
             chartType="ColumnChart"
             chartData={topToppings}
-            title="Top 5 ordered toppings"
+            title="Top Ordered Toppings"
             width="310px"
             height="180px"
           />
           <ChartView
             chartType="ColumnChart"
             chartData={branchesData}
-            title="Top 5 branches with least preparing time"
+            title="Best Preparing Time's Branches"
             width="310px"
             height="180px"
           />
           <ChartView
             chartType="PieChart"
             chartData={disData}
-            title="Distribution of orders by region"
+            title="Orders Distribution"
             width="340px"
             height="200px"
           />

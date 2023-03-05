@@ -6,16 +6,19 @@
   border-radius: 6px;
   padding: 7px 10px;
 }
+
 .board-statuscard-container h3 {
   font-size: 13px;
   color: rgba(0, 0, 0, 0.55);
   font-weight: 500;
 }
+
 .board-statuscard-icontotal {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .board-statuscard-icontotal span {
   font-weight: 500;
   font-size: 40px;
@@ -24,4 +27,14 @@
 .board-statuscard-icontotal img {
   width: 43.42px;
   height: 41px;
+}
+
+
+.board-statuscard-icontotal p {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  align-self: flex-end;
+  font-size: .9rem;
+  color: #333;
 }
