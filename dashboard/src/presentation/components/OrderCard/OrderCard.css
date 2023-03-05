@@ -24,7 +24,9 @@
 .activeMarker {
   position: absolute;
   left: 0;
-  background: #f3eac0;
+  background: #f0df94;
+  /* background: #1e2640; */
+
   height: 100%;
   width: 2%;
   border-bottom-left-radius: 7px;

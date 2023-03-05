@@ -22,31 +22,40 @@ function Orders() {
   const [showToppings, setShowToppings] = useState(false);
   const [region, setRegion] = useState("");
   const [orders, setOrders] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState({});
+  // const options = [
+  //   { value: "South", label: "South" },
+  //   { value: "Haifa", label: "Haifa" },
+  //   { value: "Center", label: "Center" },
+  //   { value: "North", label: "North" },
+  //   { value: "Dan", label: "Dan" },
+  // ];
   const options = [
-    { value: "South", label: "South" },
-    { value: "Haifa", label: "Haifa" },
-    { value: "Center", label: "Center" },
-    { value: "North", label: "North" },
-    { value: "Dan", label: "Dan" },
+    { value: "Macdonalds", label: "Macdonalds" },
+    { value: "BBB", label: "BBB" },
+    { value: "KFC", label: "KFC" },
+    { value: "Pizza Hut", label: "Pizza Hut" },
   ];
 
-  const format = "yyyy-MM-DDTHH:mm";
+  const format = "yyyy-MM-DDTHH:mm:ss";
 
   const fetchData = async () => {
     const startDate = moment(date).startOf("day").format(format);
     const endDate = moment(date).endOf("day").format(format);
     console.log(startDate);
     console.log(endDate);
+    // `/search?startDate=${startDate}&endDate=${endDate}&storeName=${region}`
     const res = await fetch(
       BASE_URL +
         `/search?startDate=${startDate}&endDate=${endDate}&storeName=${region}`
     );
-    console.log(res);
+    const data = await res.json();
+    setOrders(data.data);
+    console.log(data);
   };
   useEffect(() => {
     fetchData();
-  }, [date]);
-  console.log(region);
+  }, [date, region]);
 
   return (
     <div className="page-container">
@@ -84,9 +93,14 @@ function Orders() {
             </div>
           </div>
           <div className="orders-wrapper">
-            <OrderCard isActive={true} />
-            <OrderCard />
-            <OrderCard />
+            {orders.map((order) => (
+              <OrderCard
+                key={order._id}
+                order={order}
+                isActive={selectedOrder._id == order._id}
+                handleSelectOrder={(order) => setSelectedOrder(order)}
+              />
+            ))}
           </div>
         </div>
         <div className="order-info-container">
