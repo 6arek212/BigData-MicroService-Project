@@ -23,7 +23,6 @@ function Dashboard() {
   useEffect(() => {
     const socket = io("http://localhost:4000", { transports: ["websocket"] });
     socket.on("stats", (data) => {
-      console.log(data);
       let disData = [["Task", "Hours per Day"]];
       data?.distribution.forEach((data) =>
         disData.push([data.key, parseInt(data.value, 10)])
@@ -40,6 +39,8 @@ function Dashboard() {
       data?.orderByHour.forEach((data) =>
         _orderbyHour.push([data.key.split(" ")[1], Number(data.value, 10)])
       );
+
+
       setOrderByHour(_orderbyHour);
       setTopToppings(topT);
       setBranchersData(brData);
@@ -48,7 +49,9 @@ function Dashboard() {
       setDate(new Date());
     });
     return () => {
-      socket.close();
+      if (socket.readyState === 1) { 
+        socket.close();
+      }
     };
   }, []);
 
@@ -83,13 +86,13 @@ function Dashboard() {
           />
         </div>
         <div className="line-chart-container">
-            <Chart
-              chartType="LineChart"
-              width="100%"
-              height="200px"
-              data={orderByHour}
-              options={options}
-            />
+          <Chart
+            chartType="LineChart"
+            width="100%"
+            height="200px"
+            data={orderByHour}
+            options={options}
+          />
         </div>
       </div>
     </div>

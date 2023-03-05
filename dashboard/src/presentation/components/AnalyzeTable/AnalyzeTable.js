@@ -4,13 +4,13 @@ import "./AnalyzeTable.css";
 
 function AnalyzeTable() {
   return (
-    <div class="analyze-table-container">
-      <ul class="responsive-table">
-        <li class="table-header">
-          <div class="col col-1">Antecedent</div>
-          <div class="col col-2">Consequent</div>
-          <div class="col col-3">Support (%)</div>
-          <div class="col col-4">Confidence (%)</div>
+    <div className="analyze-table-container">
+      <ul className="responsive-table">
+        <li className="table-header">
+          <div className="col col-1">Antecedent</div>
+          <div className="col col-2">Consequent</div>
+          <div className="col col-3">Support (%)</div>
+          <div className="col col-4">Confidence (%)</div>
         </li>
 
         <TableRow
@@ -46,17 +46,17 @@ function AnalyzeTable() {
 
 const TableRow = ({ antecedent, consequent, support, confidence }) => {
   return (
-    <li class="table-row">
-      <div class="col col-1" data-label="Job Id">
+    <li className="table-row">
+      <div className="col col-1" data-label="Job Id">
         {antecedent}
       </div>
-      <div class="col col-2" data-label="Customer Name">
+      <div className="col col-2" data-label="Customer Name">
         {consequent}
       </div>
-      <div class="col col-3" data-label="Amount">
+      <div className="col col-3" data-label="Amount">
         {support}
       </div>
-      <div class="col col-4" data-label="Payment Status">
+      <div className="col col-4" data-label="Payment Status">
         {confidence}
       </div>
     </li>

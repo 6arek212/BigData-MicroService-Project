@@ -10,14 +10,12 @@ function ChartView(props) {
     <div className="chart-view-container">
       <h3>{title}</h3>
       <div className={`${chartType + "-container"}`}>
-        {chartData.length > 0 &&
           <Chart
             chartType={chartType}
             data={chartData}
             width={width}
             height={height}
           />
-        }
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ function NavBar() {
   return (
     <div className="navbar-container">
       <ul className="nav-links">
-        <li className={activeNav === 0 && "active"}>
+        <li className={activeNav === 0 ? "active" : null}>
           <Link to="/" className="nav-link" onClick={() => setActiveNav(0)}>
             <img
               src={require("../../../assets/icons/dashboard.png")}
@@ -14,7 +14,7 @@ function NavBar() {
             />
           </Link>
         </li>
-        <li className={activeNav === 1 && "active"}>
+        <li className={activeNav === 1 ? "active" : null}>
           <Link
             to="/orders"
             className="nav-link"
@@ -26,7 +26,7 @@ function NavBar() {
             />
           </Link>
         </li>
-        <li className={activeNav === 2 && "active"}>
+        <li className={activeNav === 2 ? "active" : null}>
           <Link
             to="/analyze"
             className="nav-link"
