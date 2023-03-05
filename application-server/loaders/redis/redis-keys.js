@@ -9,7 +9,8 @@ module.exports = {
     ORDERS_BY_HOUR: 'orders:by:hour',
     ORDERS_PROCESS_AVG: 'orders:process:avg',
     ORDERS_PROCESS_TIME_LEADBOARD: 'orders:process:leadboard',
-    ORDERS_BY_REGION: 'orders:by:region'
+    ORDERS_BY_REGION: 'orders:by:region',
+    BRANCH_ORDERS_COUNT_DONE: 'branch:orders:count:done'
 
 
 

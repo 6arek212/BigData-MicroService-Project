@@ -19,6 +19,44 @@ const lua = {
 
 module.exports = async (redisClient) => {
 
+    const inProgressFun = async (order) => {
+        for (let addition of order.additions) {
+            await redisClient.zIncrBy(keys.ORDERS_ADDITION_POPULAR, 1, addition)
+        }
+
+        const date = new Date(order.createdAt)
+        date.setMinutes(0)
+        date.setMilliseconds(0)
+        const formatedDate = moment(date).format('yyyy/MM/DD HH:mm')
+
+
+        await redisClient.multi()
+            .incr(keys.ORDERS_COUNT)
+            .incr(keys.ORDERS_INPROGRESS_COUNT)
+            .hIncrBy(keys.ORDERS_BY_REGION, order.region, 1)
+            .zIncrBy(keys.ORDERS_BY_HOUR, 1, formatedDate)
+            .exec()
+    }
+
+
+    const doneFun = async (order) => {
+        const diff = new Date(order.finishedAt) - new Date(order.createdAt)
+        const finishTime = diff / 1000
+
+
+        await redisClient
+            .multi()
+            .eval(lua.script,
+                {   // changed region to store_name
+                    keys: [keys.ORDERS_PROCESS_TIME_LEADBOARD, order.store_name, keys.BRANCH_ORDERS_COUNT_DONE],
+                    arguments: [finishTime + '']
+                }
+            )
+            .incrByFloat(keys.ORDERS_PROCESS_AVG, finishTime)
+            .decr(keys.ORDERS_INPROGRESS_COUNT)
+            .exec()
+    }
+
 
     const updateOrderProcessTime = async (order) => {
         if (order.status !== 'done')
@@ -27,7 +65,7 @@ module.exports = async (redisClient) => {
         // in seconds
         const diff = new Date(order.finishedAt) - new Date(order.createdAt)
         const finishTime = diff / 1000
-        redisClient.incrByFloat(keys.ORDERS_PROCESS_AVG, finishTime)
+        await redisClient.incrByFloat(keys.ORDERS_PROCESS_AVG, finishTime)
     }
 
 
@@ -36,7 +74,7 @@ module.exports = async (redisClient) => {
             return
 
         for (let addition of order.additions) {
-            redisClient.zIncrBy(keys.ORDERS_ADDITION_POPULAR, 1, addition)
+            await redisClient.zIncrBy(keys.ORDERS_ADDITION_POPULAR, 1, addition)
         }
     }
 
@@ -141,6 +179,8 @@ module.exports = async (redisClient) => {
         updateOrdersCount,
         decreaseInProgressOrdersCount,
         fetchStats,
-        clear
+        clear,
+        inProgressFun,
+        doneFun
     }
 }

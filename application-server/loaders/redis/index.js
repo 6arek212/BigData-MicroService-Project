@@ -15,6 +15,5 @@ module.exports = async ({ clearOnStart = false }) => {
     if (clearOnStart)
         await dbFunctions.clear()
 
-
     return dbFunctions
 }
