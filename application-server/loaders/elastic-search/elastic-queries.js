@@ -51,31 +51,6 @@ const makeElasticSearchQueries = (client) => {
     }
 
 
-    const createTestOrders = async () => {
-        await client.index({
-            index: 'orders',
-            document: {
-                id: '1',
-                store_id: '1',
-                store_name: 'KFC',
-                createdAt: new Date()
-            }
-        })
-
-
-        await client.index({
-            index: 'orders',
-            document: {
-                id: '2',
-                store_id: '2',
-                store_name: 'BBB',
-                createdAt: new Date()
-            }
-        })
-    }
-
-
-
     return {
         searchOrdersByDate
     }

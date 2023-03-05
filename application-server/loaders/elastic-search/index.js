@@ -18,9 +18,7 @@ module.exports = async ({ clearOnStart }) => {
             await client.indices.delete({ index: 'orders' })
         } catch (e) { }
     }
+    await client.indices.create({ index: 'orders' })
 
-    // const startDate = moment().startOf('day').format();
-    // const endDate = moment().endOf('day').format();
-    // console.log(await queries.searchOrdersByDate({ startDate, endDate , storeName: 'KFC'}));
     return queries
 }
