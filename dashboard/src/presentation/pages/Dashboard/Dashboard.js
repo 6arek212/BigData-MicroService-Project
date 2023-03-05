@@ -56,7 +56,7 @@ function Dashboard() {
 
   return (
     <div className="page-container">
-      {/* <div className="dashboard-container"> */}
+      <div className="dashboard-container">
         <DashboardMainBar date={date} />
         <StatusCards stats={stats} />
         <div className="charts-container">
@@ -83,15 +83,15 @@ function Dashboard() {
           />
         </div>
         <div className="line-chart-container">
-          <Chart
-            chartType="LineChart"
-            width="100%"
-            height="200px"
-            data={orderByHour}
-            options={options}
-          />
+            <Chart
+              chartType="LineChart"
+              width="100%"
+              height="200px"
+              data={orderByHour}
+              options={options}
+            />
         </div>
-      {/* </div> */}
+      </div>
     </div>
   );
 }

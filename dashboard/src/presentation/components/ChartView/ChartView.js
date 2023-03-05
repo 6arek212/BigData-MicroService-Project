@@ -5,16 +5,19 @@ import "./ChartView.css";
 
 function ChartView(props) {
   const { chartType, chartData, title, width, height } = props;
+
   return (
     <div className="chart-view-container">
       <h3>{title}</h3>
       <div className={`${chartType + "-container"}`}>
-        <Chart
-          chartType={chartType}
-          data={chartData}
-          width={width}
-          height={height}
-        />
+        {chartData.length > 0 &&
+          <Chart
+            chartType={chartType}
+            data={chartData}
+            width={width}
+            height={height}
+          />
+        }
       </div>
     </div>
   );
