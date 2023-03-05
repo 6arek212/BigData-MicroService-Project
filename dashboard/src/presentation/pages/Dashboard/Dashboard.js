@@ -49,9 +49,7 @@ function Dashboard() {
       setDate(new Date());
     });
     return () => {
-      if (socket.readyState === 1) { 
-        socket.close();
-      }
+      socket.close();
     };
   }, []);
 
