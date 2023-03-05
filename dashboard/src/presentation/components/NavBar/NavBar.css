@@ -1,17 +1,14 @@
 .navbar-container {
   width: 81px;
-  height: 693px;
+  
   background: #dba24a;
-  /* background: #1e2640; */
   box-shadow: 12px 12px 40px rgba(181, 159, 132, 0.38);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  align-self: center;
+  align-self: stretch;
   position: relative;
   left: 15px;
-  /* top: 75px; */
   box-shadow: 12px 12px 40px rgba(181, 159, 132, 0.38);
 }
 .navbar-container .userLogo {
@@ -26,9 +23,8 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  height: 60%;
   padding: 9px 10px 0 0;
   gap: 2em;
   margin: 0;

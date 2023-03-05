@@ -1,8 +1,7 @@
 .board-statuscard-container {
-  width: 185px;
-  height: 105px;
+  min-width: 200px;
+  min-height: 105px;
   background: #ffffff;
-
   box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.08), 3px 3px 30px rgba(0, 0, 0, 0.08);
   border-radius: 6px;
   padding: 7px 10px;

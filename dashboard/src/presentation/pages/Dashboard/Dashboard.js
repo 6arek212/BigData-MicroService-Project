@@ -56,7 +56,7 @@ function Dashboard() {
 
   return (
     <div className="page-container">
-      <div className="dashboard-container">
+      {/* <div className="dashboard-container"> */}
         <DashboardMainBar date={date} />
         <StatusCards stats={stats} />
         <div className="charts-container">
@@ -91,7 +91,7 @@ function Dashboard() {
             options={options}
           />
         </div>
-      </div>
+      {/* </div> */}
     </div>
   );
 }
