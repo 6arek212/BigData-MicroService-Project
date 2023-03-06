@@ -1,11 +1,15 @@
-const io = require('socket.io')
+const { createAdapter } = require("@socket.io/cluster-adapter");
+const { Server } = require("socket.io");
+const { setupWorker } = require("@socket.io/sticky");
 
 
 
 
 module.exports = ({ server, onEmit }) => {
+    const socket = new Server(server)
+    socket.adapter(createAdapter());
+    setupWorker(socket);
 
-    const socket = io(server)
 
     socket.on('connection', async function (clientSocket) {
         console.log('New client connected with id = ', clientSocket.id);

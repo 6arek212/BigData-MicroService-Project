@@ -74,12 +74,14 @@ A microservice project that receives pizza orders from a simulator and processes
     - **MongoDb** to store the data for training the a machine learning model
     - **Elasticsearch** for a quick search queries
     - **Kafka** for passing the data between different applications
+    - **Clustering**, Evrey instance of the application server will run NUM_CPU_CORES of processes
     - Data in json format
     - Clean Architecture
     - **BigML** API for training a **machine learning model**
-    - **WebSocket** for live data emitting
+    - **WebSocket** for live data emitting, Socketio / Socketio Cluster / Socketio Sticky
     - Restful API
     - Express
+    - Built with **Horizontal Scalling** in mind
 
 
 
@@ -101,6 +103,10 @@ A microservice project that receives pizza orders from a simulator and processes
 
 ## Demo
 
+`version 2`
+![Alt text](readme-imgs/dashboard-in-action2.gif)
+
+`version 1`
 ![Alt text](readme-imgs/dashboard-in-action.gif)
 
 
