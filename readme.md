@@ -128,3 +128,22 @@ A microservice project that receives pizza orders from a simulator and processes
 
 </br>
 
+
+## Issues Faced
+
+- Kafka consumer receives data not in order
+
+    -Fix: Just add to the producer a key for every message, then messages with the same key will be received in order
+
+- Redis Automic queries
+
+    - Fix: Use lua scripts, Or redisClient.multi()
+
+
+## References
+
+- https://github.com/socketio/socket.io-sticky
+- https://www.dataversity.net/how-to-overcome-data-order-issues-in-apache-kafka/
+- https://www.npmjs.com/package/redis
+- https://socket.io/docs/v4/cluster-adapter/
+- https://www.elastic.co/guide/en/cloud/current/ec-getting-started-node-js.html
