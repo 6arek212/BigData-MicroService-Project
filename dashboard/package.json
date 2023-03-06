@@ -4,8 +4,9 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.6",
+    "@emotion/style": "^0.8.0",
     "@emotion/styled": "^11.10.6",
-    "@mui/material": "^5.11.11",
+    "@mui/material": "^5.11.12",
     "@mui/x-date-pickers": "^5.0.20",
     "@reach/combobox": "^0.18.0",
     "@testing-library/jest-dom": "^5.16.5",
@@ -20,6 +21,7 @@
     "react-dom": "^18.2.0",
     "react-google-charts": "^4.0.0",
     "react-icons": "^4.7.1",
+    "react-paginate": "^8.1.4",
     "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1",
     "react-select": "^5.7.0",

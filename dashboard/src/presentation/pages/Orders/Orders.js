@@ -12,7 +12,7 @@ import TextField from "@mui/material/TextField";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-
+import Pagination from "@mui/material/Pagination";
 import moment from "moment";
 
 const BASE_URL = "http://localhost:4000/api";
@@ -23,6 +23,12 @@ function Orders() {
   const [region, setRegion] = useState("");
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [numOfPages, setNumOfPages] = useState(1);
+  const [startData, setStartData] = useState(new Date());
+
+  const PAGE_SIZE = 10;
+
   // const options = [
   //   { value: "South", label: "South" },
   //   { value: "Haifa", label: "Haifa" },
@@ -42,21 +48,28 @@ function Orders() {
   const fetchData = async () => {
     const startDate = moment(date).startOf("day").format(format);
     const endDate = moment(date).endOf("day").format(format);
-    console.log(startDate);
-    console.log(endDate);
-    // `/search?startDate=${startDate}&endDate=${endDate}&storeName=${region}`
+
     const res = await fetch(
       BASE_URL +
-        `/search?startDate=${startDate}&endDate=${endDate}&storeName=${region}`
+        `/search?startDate=${startDate}&endDate=${endDate}&storeName=${region}&page=${currentPage}&pageSize=${PAGE_SIZE}&searchDate=${startData}`
     );
+
     const data = await res.json();
     setOrders(data.data);
-    console.log(data);
+    setNumOfPages(Math.round(data.count / PAGE_SIZE));
+    console.log("COUNT --- " + data.count);
   };
+
+  const handleChangePage = (event, value) => {
+    if (value == 1) {
+      setStartData(new Date());
+    }
+    setCurrentPage(value);
+  };
+
   useEffect(() => {
     fetchData();
-  }, [date, region]);
-
+  }, [date, region, currentPage]);
   return (
     <div className="page-container">
       <div className="ordersPage-container">
@@ -102,6 +115,12 @@ function Orders() {
               />
             ))}
           </div>
+          <Pagination
+            count={numOfPages}
+            variant="outlined"
+            color="primary"
+            onChange={handleChangePage}
+          />
         </div>
         <div className="order-info-container">
           <h2>Order info</h2>

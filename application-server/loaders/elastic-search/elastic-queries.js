@@ -15,9 +15,7 @@ const makeElasticSearchQueries = (client) => {
     const q = {
       index: "orders",
       // scroll: "10s",
-      sort: [
-        { createdAt: 'desc' }
-      ],
+      sort: [{ createdAt: "desc" }],
       query: {
         bool: {
           must: must,
@@ -55,22 +53,11 @@ const makeElasticSearchQueries = (client) => {
       q.from = (page - 1) * pageSize;
     }
 
-
     const { count } = await client.count({
-      index: "orders"
-    })
+      index: "orders",
+    });
 
-    const { hits } = await client.search(q)
-
-    // var { _scroll_id, hits } = await client.search(q);
-    // while (hits && hits.hits.length) {
-    //   // Append all new hits
-    //   allRecords.push(...hits.hits);
-    //   var { _scroll_id, hits } = await client.scroll({
-    //     scroll_id: _scroll_id,
-    //     scroll: "10s",
-    //   });
-    // }
+    const { hits } = await client.search(q);
 
     return { count, result: hits.hits };
   };

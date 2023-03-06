@@ -5,9 +5,11 @@ import NavBar from "./presentation/components/NavBar/NavBar";
 import Orders from "./presentation/pages/Orders/Orders";
 import Dashboard from "./presentation/pages/Dashboard/Dashboard";
 import Analyze from "./presentation/pages/Analyze/Analyze";
+import { StyledEngineProvider } from "@mui/material/styles";
 function App() {
   return (
-      <BrowserRouter>
+    <BrowserRouter>
+      <StyledEngineProvider injectFirst>
         <div className="app-wrapper">
           <NavBar />
           <Routes>
@@ -16,7 +18,8 @@ function App() {
             <Route path="/analyze" element={<Analyze />} />
           </Routes>
         </div>
-      </BrowserRouter>
+      </StyledEngineProvider>
+    </BrowserRouter>
   );
 }
 
