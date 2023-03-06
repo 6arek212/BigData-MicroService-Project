@@ -22,7 +22,7 @@
   gap: 8px;
   margin-top: 20px;
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .search-orders-wrapper {
@@ -79,7 +79,7 @@
 }
 
 .order-items {
-  overflow-y: scroll;
+  overflow-y: auto;
   /* height: 77%; */
 }
 .select-date-options button {
