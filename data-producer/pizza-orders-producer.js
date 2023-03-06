@@ -80,12 +80,12 @@ async function delay(ms) {
 
 const makeOrderForStore = async ({ _id, store_name, region }) => {
     console.log('opened store', _id, store_name, region);
-    await storeProducer.produce({ _id: _id, isOpened: 1 })
+    await storeProducer.produce({_id: _id, isOpened: 1})
 
     let end = Math.floor((Math.random() + 1) * 20)
     let i = 0
 
-    while (i < 1) {
+    while (i < end) {
         await delay(1000)
         const order = makeOrder(_id, store_name, region)
         console.log('sending order', order._id, i);
@@ -96,7 +96,7 @@ const makeOrderForStore = async ({ _id, store_name, region }) => {
         i++;
     }
 
-    await storeProducer.produce({ _id: _id, isOpened: 0 })
+    await storeProducer.produce({_id: _id, isOpened: 0})
     console.log('close store', _id, store_name, region);
 }
 
@@ -108,7 +108,7 @@ const makeStores = (storeName) => {
     let k = 0
     for (let rg of regions) {
         stores.push({
-            _id: storeName + `-id-${k}`,
+            _id: storeName + `-${rg}`,
             store_name: storeName,
             region: rg
         })
