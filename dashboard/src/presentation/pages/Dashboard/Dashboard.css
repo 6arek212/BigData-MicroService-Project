@@ -5,20 +5,43 @@
 .board-status-cards {
   display: flex;
   justify-content: space-between;
-  margin-top: 15px;
   gap: 50px;
+}
+
+.cards-container {
+  display: flex;
 }
 
 .charts-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   gap: 30px;
-  margin-top: 20px;
+  align-self: flex-start;
+}
+
+.charts-container>.charts-container-1 {
+  display: flex; 
+  gap: 20px;
 }
 
 .line-chart-container {
-  margin-top: 15px;
   padding: 2px;
   box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.08), 3px 3px 30px rgba(0, 0, 0, 0.08);
   border-radius: 6px;
+}
+
+
+
+.stores-status {
+  padding: 0 12px 12px 12px;
+  background: #fff;
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.08), 3px 3px 30px rgba(0, 0, 0, 0.08);
+}
+
+.stores-status>div {
+  max-width: 400px;
+  border-radius: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }

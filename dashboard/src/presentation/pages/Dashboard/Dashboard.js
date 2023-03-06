@@ -5,6 +5,8 @@ import DashboardMainBar from "../../components/DashboardMainBar/DashboardMainBar
 import ChartView from "../../components/ChartView/ChartView";
 import Chart from "react-google-charts";
 import StatusCards from "../../components/StatusCards";
+import StoreStatus from "../../components/StoreStatus/StoreStatus";
+import Spacer from "../../components/Spacer";
 function Dashboard() {
   const [stats, setStats] = useState(null);
   const [disData, setDisData] = useState([]);
@@ -12,6 +14,7 @@ function Dashboard() {
   const [topToppings, setTopToppings] = useState([]);
   const [orderByHour, setOrderByHour] = useState([]);
   const [date, setDate] = useState(new Date());
+  const [storesStatus, setStoresStatus] = useState(null);
 
   const options = {
     title: "Orders",
@@ -40,7 +43,7 @@ function Dashboard() {
         _orderbyHour.push([data.key.split(" ")[1], Number(data.value, 10)])
       );
 
-
+      setStoresStatus(data.storesStatus);
       setOrderByHour(_orderbyHour);
       setTopToppings(topT);
       setBranchersData(brData);
@@ -59,39 +62,75 @@ function Dashboard() {
     <div className="page-container">
       <div className="dashboard-container">
         <DashboardMainBar date={date} />
+        
+        <Spacer space={6} />
+
+
         <StatusCards stats={stats} />
-        <div className="charts-container">
-          <ChartView
-            chartType="ColumnChart"
-            chartData={topToppings}
-            title="Top Ordered Toppings"
-            width="310px"
-            height="180px"
-          />
-          <ChartView
-            chartType="ColumnChart"
-            chartData={branchesData}
-            title="Best Preparing Time's Branches"
-            width="310px"
-            height="180px"
-          />
-          <ChartView
-            chartType="PieChart"
-            chartData={disData}
-            title="Orders Distribution"
-            width="340px"
-            height="200px"
-          />
+
+        <Spacer space={20} />
+
+
+        <div className="cards-container">
+          <div className="stores-status">
+            <h3>Stores Status</h3>
+            <div>
+              {
+                storesStatus?.map((store, index) => {
+                  const [name, region] = store.key.split('-')
+                  return < StoreStatus key={index} storeName={name} region={region} status={store.value} />
+                })
+              }
+            </div>
+          </div>
+
+          <Spacer space={20} />
+
+          <div className="charts-container">
+           
+           
+            <div className="charts-container-1">
+              <ChartView
+                chartType="ColumnChart"
+                chartData={topToppings}
+                title="Top Ordered Toppings"
+                width="310px"
+                height="180px"
+              />
+              <ChartView
+                chartType="ColumnChart"
+                chartData={branchesData}
+                title="Best Preparing Time's Branches"
+                width="310px"
+                height="180px"
+              />
+              <ChartView
+                chartType="PieChart"
+                chartData={disData}
+                title="Orders Distribution"
+                width="340px"
+                height="200px"
+              />
+            </div>
+
+
+            <div className="line-chart-container">
+              <Chart
+                chartType="LineChart"
+                width="100%"
+                height="200px"
+                data={orderByHour}
+                options={options}
+              />
+            </div>
+          </div>
         </div>
-        <div className="line-chart-container">
-          <Chart
-            chartType="LineChart"
-            width="100%"
-            height="200px"
-            data={orderByHour}
-            options={options}
-          />
-        </div>
+
+
+
+
+
+
       </div>
     </div>
   );

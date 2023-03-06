@@ -1,0 +1,32 @@
+.store-status-container {
+    display: flex;
+    border: 1px solid #cecece;
+    border-radius: 12px;
+    padding: 3px 6px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+.store-status-container>img {
+    width: 20px;
+    height: 20px;
+}
+
+
+
+.store-status-container>div>p,
+.store-status-container>div>h5 {
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.store-status-container>div>p {
+    font-size: 12px;
+    color: #777777
+}
+
+.store-status-container .spacer {
+    padding: 12px;
+}
