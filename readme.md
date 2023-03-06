@@ -133,7 +133,7 @@ A microservice project that receives pizza orders from a simulator and processes
 
 - Kafka consumer receives data not in order
 
-    -Fix: Just add to the producer a key for every message, then messages with the same key will be received in order
+    - Fix: Just add to the producer a key for every message, then messages with the same key will be received in order
 
 - Redis Automic queries
 
