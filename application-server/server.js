@@ -1,17 +1,16 @@
 require("dotenv").config()
 const express = require("express");
 const http = require("http");
-const sio = require('socket.io')
-const loaders = require('./loaders')
-
-let port = process.env.PORT || "4000"
-
 const cluster = require("cluster");
 const numCPUs = require("os").cpus().length;
 const { setupMaster } = require("@socket.io/sticky");
 const { setupPrimary } = require("@socket.io/cluster-adapter");
+const loaders = require('./loaders')
 
 
+let port = process.env.PORT || "4000"
+
+// master cluster 
 const setUpMaster = async () => {
   if (!cluster.isMaster)
     return
@@ -57,4 +56,5 @@ const run = async () => {
 }
 
 
+// just run me :)
 run()

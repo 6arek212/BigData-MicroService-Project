@@ -19,30 +19,30 @@ module.exports = async ({ clearOnStart }) => {
         } catch (e) { }
     }
     try {
-        await client.indices.create({index: 'orders'})
+        await client.indices.create({ index: 'orders' })
         await client.indices.putMapping({
             index: 'orders',
             mappings: {
-                properties: {
-                    _id: { tpye: 'string' },
-                    store_id: { tpye: 'string' },
-                    store_name: { tpye: 'string' },
-                    region: { tpye: 'string' },
-                    status: { tpye: 'string' },
-                    additions: { tpye: 'string' },
-                    createdAt: { tpye: 'date' },
-                    finishedAt: { tpye: 'date' },
-                    name: { tpye: 'string' },
-                    address: { tpye: 'string' },
-                    phone: { tpye: 'string' }
+                order: {
+                    properties: {
+                        _id: { tpye: 'string' },
+                        store_id: { tpye: 'string' },
+                        store_name: { tpye: 'string' },
+                        region: { tpye: 'string' },
+                        status: { tpye: 'string' },
+                        additions: { tpye: 'string' },
+                        createdAt: { tpye: 'date' },
+                        finishedAt: { tpye: 'date' },
+                        name: { tpye: 'string' },
+                        address: { tpye: 'string' },
+                        phone: { tpye: 'string' }
+                    }
                 }
             }
         })
-
-
-
     }
     catch (e) { }
+
 
     return queries
 }

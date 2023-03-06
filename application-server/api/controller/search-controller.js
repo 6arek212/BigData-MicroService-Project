@@ -1,16 +1,20 @@
 module.exports = (dbSearch) => {
   const search = async (req, res, next) => {
-    const { startDate, endDate, storeName } = req.query;
+    const { startDate, endDate, storeName, page, pageSize , searchDate } = req.query;
     try {
-      const data = await dbSearch.searchOrdersByDate({
+      const { count, result } = await dbSearch.searchOrdersByDate({
+        searchDate,
         startDate: new Date(startDate),
         endDate: new Date(endDate),
         storeName: storeName,
+        page,
+        pageSize
       });
       //   console.log(data);
       res.status(200).json({
         message: "success",
-        data: data,
+        data: result,
+        count
       });
     } catch (e) {
       next(e);
