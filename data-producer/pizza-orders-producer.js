@@ -67,7 +67,7 @@ const makeOrder = (storeId, storeName, region) => {
 const completeOrder = async (order) => {
     const processTime = Math.floor((Math.random() + 1) * 5) * 1000
     await delay(processTime)
-    await pizzaProducer.produce({ ...order, finishedAt: new Date(), status: 'done' })
+    await pizzaProducer.produce({ key: order._id, value: { ...order, finishedAt: new Date(), status: 'done' } })
     console.log('order is done', order._id);
 }
 
@@ -80,7 +80,7 @@ async function delay(ms) {
 
 const makeOrderForStore = async ({ _id, store_name, region }) => {
     console.log('opened store', _id, store_name, region);
-    await storeProducer.produce({_id: _id, isOpened: 1})
+    await storeProducer.produce({ key: _id, value: { _id: _id, isOpened: 1 } })
 
     let end = Math.floor((Math.random() + 1) * 20)
     let i = 0
@@ -90,13 +90,13 @@ const makeOrderForStore = async ({ _id, store_name, region }) => {
         const order = makeOrder(_id, store_name, region)
         console.log('sending order', order._id, i);
 
-        await pizzaProducer.produce(order)
-
+        await pizzaProducer.produce({ key: order._id, value: order })
+        console.log(order);
         completeOrder(order)
         i++;
     }
 
-    await storeProducer.produce({_id: _id, isOpened: 0})
+    await storeProducer.produce({ key: _id, value: { _id: _id, isOpened: 0 } })
     console.log('close store', _id, store_name, region);
 }
 

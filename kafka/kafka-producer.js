@@ -9,11 +9,11 @@ module.exports = (topic) => {
 
     return {
         connect: producer.connect,
-        produce: async (data) => {
+        produce: async ({ key, value }) => {
             await producer.send({
                 topic: topic,
                 compression: CompressionTypes.GZIP,
-                messages: [{ value: JSON.stringify(data) }],
+                messages: [{ key: key, value: JSON.stringify(value) }],
             })
         },
         disconnect: producer.disconnect
