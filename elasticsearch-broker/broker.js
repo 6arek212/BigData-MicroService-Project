@@ -31,7 +31,7 @@ const run = async () => {
           await client.update({
             index: "orders",
             id: _id,
-            document: data,
+            doc: data,
           });
         }
       } catch (err) {

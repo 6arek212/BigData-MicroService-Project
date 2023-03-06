@@ -62,17 +62,15 @@ module.exports = async (redisClient) => {
 
     const updateStoreStatus = async ({ _id, isOpened }) => {
         // console.log('updateStoreStatus', _id, isOpened);
-        // await redisClient.zAdd(keys.STORE_STATUS_KEY, { value: _id, score: isOpened })
-        if (isOpened)
-            await redisClient.incr(keys.STORES_COUNTER)
-        else
-            await redisClient.decr(keys.STORES_COUNTER)
+        await redisClient.multi()
+            .zAdd(keys.STORE_STATUS_KEY, { value: _id, score: isOpened })
+            .incrBy(keys.STORES_COUNTER, isOpened ? 1 : -1)
+            .exec()
     }
 
 
     const fetchStats = async () => {
-        // const opendStoresCount11 = await redisClient.zCount(keys.STORE_STATUS_KEY, 1, 1) || 0
-        // console.log(opendStoresCount11);
+        const storesStatus = makePairsFromArray(await redisClient.sendCommand(['ZREVRANGE', keys.STORE_STATUS_KEY, '0', '-1', 'withscores']))
         const opendStoresCount = await redisClient.get(keys.STORES_COUNTER) || 0
         const ordersCount = await redisClient.get(keys.ORDERS_COUNT) || 0
         const ordersInProgressCount = await redisClient.get(keys.ORDERS_INPROGRESS_COUNT) || 0
@@ -85,6 +83,7 @@ module.exports = async (redisClient) => {
         orderByHour.sort((a, b) => a.key.localeCompare(b.key))
 
         return {
+            storesStatus,
             opendStoresCount,
             ordersCount,
             ordersInProgressCount,
