@@ -14,8 +14,11 @@
 
 A microservice project that receives pizza orders from a simulator and processes them to be visulized in dashboard, analytics, and search results
 
+</br>
 
-![](imgs/gui.gif)
+### Infrastructure
+
+![Alt text](readme-imgs/infrastructure.png)
 
 </br>
 
