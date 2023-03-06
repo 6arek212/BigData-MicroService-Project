@@ -4,7 +4,7 @@
 
 # Pizza Orders , Big Data And Microservices 
 
-![Alt text](readme-imgs/dashboard-img.png)
+![Alt text](readme-imgs/dashboard.png)
 
 #### A part of a university project
 
@@ -21,6 +21,10 @@ A microservice project that receives pizza orders from a simulator and processes
 ![Alt text](readme-imgs/infrastructure.png)
 
 </br>
+
+### Pipeline
+
+![Alt text](readme-imgs/pipline.png)
 
 ## How To Run
 
