@@ -55,6 +55,12 @@ const makeElasticSearchQueries = (client) => {
 
     const { count } = await client.count({
       index: "orders",
+      query: {
+        bool: {
+          must: must,
+          filter: filter,
+        },
+      },
     });
 
     const { hits } = await client.search(q);

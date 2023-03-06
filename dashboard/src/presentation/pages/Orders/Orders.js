@@ -37,6 +37,7 @@ function Orders() {
   //   { value: "Dan", label: "Dan" },
   // ];
   const options = [
+    { value: '', label: "All" },
     { value: "Macdonalds", label: "Macdonalds" },
     { value: "BBB", label: "BBB" },
     { value: "KFC", label: "KFC" },
@@ -51,13 +52,12 @@ function Orders() {
 
     const res = await fetch(
       BASE_URL +
-        `/search?startDate=${startDate}&endDate=${endDate}&storeName=${region}&page=${currentPage}&pageSize=${PAGE_SIZE}&searchDate=${startData}`
+      `/search?startDate=${startDate}&endDate=${endDate}&storeName=${region}&page=${currentPage}&pageSize=${PAGE_SIZE}&searchDate=${startData}`
     );
 
     const data = await res.json();
     setOrders(data.data);
     setNumOfPages(Math.round(data.count / PAGE_SIZE));
-    console.log("COUNT --- " + data.count);
   };
 
   const handleChangePage = (event, value) => {
@@ -81,7 +81,10 @@ function Orders() {
                 <Select
                   options={options}
                   defaultValue="South"
-                  onChange={(option) => setRegion(option.value)}
+                  onChange={(option) => {
+                    setCurrentPage(1)
+                    setRegion(option.value)
+                  }}
                 />
               </div>
             </div>
@@ -120,6 +123,7 @@ function Orders() {
             variant="outlined"
             color="primary"
             onChange={handleChangePage}
+            page={currentPage}
           />
         </div>
         <div className="order-info-container">
