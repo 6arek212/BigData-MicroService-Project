@@ -2,14 +2,15 @@
   /* border: 2px solid red; */
   position: absolute;
   background: white;
-  width: 250px;
-  height: 300px;
+  min-width: 250px;
+  min-height: 300px;
   top: 50%;
   left: 45%;
   transform: translate(0, -50%);
   border-radius: 15px;
   z-index: 9999;
   box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.08), 3px 3px 30px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
 }
 
 .item-toppings-cta {

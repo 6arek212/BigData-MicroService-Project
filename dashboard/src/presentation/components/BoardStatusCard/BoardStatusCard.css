@@ -1,10 +1,12 @@
 .board-statuscard-container {
-  min-width: 200px;
-  min-height: 105px;
+  /* min-width: 200px;
+  min-height: 105px; */
+  width: 200px;
+  height: 110px;
   background: #ffffff;
   box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.08), 3px 3px 30px rgba(0, 0, 0, 0.08);
   border-radius: 6px;
-  padding: 7px 10px;
+  padding: 6px 10px;
 }
 
 .board-statuscard-container h3 {
@@ -29,12 +31,11 @@
   height: 41px;
 }
 
-
 .board-statuscard-icontotal p {
   flex: 1;
   margin: 0;
   padding: 0;
   align-self: flex-end;
-  font-size: .9rem;
+  font-size: 0.9rem;
   color: #333;
 }

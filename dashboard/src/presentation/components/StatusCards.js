@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import BoardStatusCard from "./BoardStatusCard/BoardStatusCard";
 function StatusCards({ stats }) {
-  
   return (
     <div className="board-status-cards">
       <BoardStatusCard
@@ -12,7 +11,7 @@ function StatusCards({ stats }) {
       <BoardStatusCard
         title="Preparing AVG"
         total={stats?.processAvg?.toString().substring(0, 4)}
-        messure='sec'
+        messure="sec"
         icon={require("../../assets/icons/clockp.png")}
       />
       <BoardStatusCard

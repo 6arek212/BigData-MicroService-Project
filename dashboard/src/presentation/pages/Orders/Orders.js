@@ -2,18 +2,17 @@ import React, { useState, useEffect } from "react";
 import "./Orders.css";
 import OrderCard from "../../components/OrderCard/OrderCard";
 import Select from "react-select";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { FiPhoneCall } from "react-icons/fi";
-import OrderStatusCard from "../../components/OrderStatusCard/OrderStatusCard";
 import OrderItemInfo from "../../components/OrderItemInfo/OrderItemInfo";
 import ItemToppings from "../../components/ItemToppings/ItemToppings";
 import TextField from "@mui/material/TextField";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import OrderStatusRow from "../../components/OrderStatusRow";
 import Pagination from "@mui/material/Pagination";
 import moment from "moment";
+import Spacer from "../../components/Spacer";
 
 const BASE_URL = "http://localhost:4000/api";
 
@@ -22,41 +21,31 @@ function Orders() {
   const [showToppings, setShowToppings] = useState(false);
   const [region, setRegion] = useState("");
   const [orders, setOrders] = useState([]);
-  const [selectedOrder, setSelectedOrder] = useState({});
+  const [selectedOrder, setSelectedOrder] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [numOfPages, setNumOfPages] = useState(1);
   const [startData, setStartData] = useState(new Date());
 
   const PAGE_SIZE = 10;
-
-  // const options = [
-  //   { value: "South", label: "South" },
-  //   { value: "Haifa", label: "Haifa" },
-  //   { value: "Center", label: "Center" },
-  //   { value: "North", label: "North" },
-  //   { value: "Dan", label: "Dan" },
-  // ];
+  const format = "yyyy-MM-DDTHH:mm:ss";
   const options = [
-    { value: '', label: "All" },
+    { value: "", label: "All" },
     { value: "Macdonalds", label: "Macdonalds" },
     { value: "BBB", label: "BBB" },
     { value: "KFC", label: "KFC" },
     { value: "Pizza Hut", label: "Pizza Hut" },
   ];
 
-  const format = "yyyy-MM-DDTHH:mm:ss";
-
   const fetchData = async () => {
     const startDate = moment(date).startOf("day").format(format);
     const endDate = moment(date).endOf("day").format(format);
-
     const res = await fetch(
       BASE_URL +
-      `/search?startDate=${startDate}&endDate=${endDate}&storeName=${region}&page=${currentPage}&pageSize=${PAGE_SIZE}&searchDate=${startData}`
+        `/search?startDate=${startDate}&endDate=${endDate}&storeName=${region}&page=${currentPage}&pageSize=${PAGE_SIZE}&searchDate=${startData}`
     );
-
     const data = await res.json();
     setOrders(data.data);
+    setSelectedOrder(data.data[0]);
     setNumOfPages(Math.round(data.count / PAGE_SIZE));
   };
 
@@ -82,8 +71,8 @@ function Orders() {
                   options={options}
                   defaultValue="South"
                   onChange={(option) => {
-                    setCurrentPage(1)
-                    setRegion(option.value)
+                    setCurrentPage(1);
+                    setRegion(option.value);
                   }}
                 />
               </div>
@@ -128,30 +117,21 @@ function Orders() {
         </div>
         <div className="order-info-container">
           <h2>Order info</h2>
-          <div className="order-info-row">
-            <OrderStatusCard text="Perparing time" info="00h: 25m: 30s" />
-            <OrderStatusCard text={"address"} info="Bartaa haifa" />
-            <OrderStatusCard
-              text={"Wissam kabha"}
-              info={"0547973442"}
-              icon={<FiPhoneCall color="#00B929" size={27} />}
-            />
-          </div>
+          <OrderStatusRow selectedOrder={selectedOrder} />
+          <Spacer space={15} />
           <div className="order-items">
             <OrderItemInfo
               dish={{ name: "pizza" }}
-              total={5}
-              handleShowToppings={() => setShowToppings(true)}
-            />
-            <OrderItemInfo
-              dish={{ name: "pizza" }}
-              total={5}
+              total={1}
               handleShowToppings={() => setShowToppings(true)}
             />
           </div>
         </div>
         {showToppings && (
-          <ItemToppings handlecloseToppings={() => setShowToppings(false)} />
+          <ItemToppings
+            handlecloseToppings={() => setShowToppings(false)}
+            toppings={selectedOrder?._source.additions}
+          />
         )}
       </div>
     </div>

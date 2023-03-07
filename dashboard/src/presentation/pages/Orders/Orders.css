@@ -3,7 +3,6 @@
   width: 100%;
   display: flex;
   position: relative;
-  /* height: 700px; */
   align-items: stretch;
 }
 .orders-cta {
@@ -11,9 +10,9 @@
   flex-direction: column;
   gap: 8px;
   background: rgba(192, 192, 192, 0.15);
-  width: 600px;
+  width: 35%;
   height: 100%;
-  padding: 5px 8px;
+  padding: 5px 12px 10px;
 }
 
 .orders-wrapper {
@@ -65,7 +64,6 @@
   height: 100%;
   width: 100%;
   margin-left: 5px;
-  /* border: 2px solid red; */
   padding: 5px 10px;
 }
 .order-info-container h2 {
@@ -78,10 +76,6 @@
   color: rgba(0, 0, 0, 0.81);
 }
 
-.order-items {
-  overflow-y: auto;
-  /* height: 77%; */
-}
 .select-date-options button {
   width: 15px;
   height: 10px;

@@ -22,7 +22,7 @@ function Dashboard() {
     legend: { position: "bottom" },
     series: [{ color: "#1E2640" }],
   };
-  //----------------------------\\
+
   useEffect(() => {
     const socket = io("http://localhost:4000", { transports: ["websocket"] });
     socket.on("stats", (data) => {
@@ -42,7 +42,6 @@ function Dashboard() {
       data?.orderByHour.forEach((data) =>
         _orderbyHour.push([data.key.split(" ")[1], Number(data.value, 10)])
       );
-
       setStoresStatus(data.storesStatus);
       setOrderByHour(_orderbyHour);
       setTopToppings(topT);
@@ -56,81 +55,86 @@ function Dashboard() {
     };
   }, []);
 
-  //----------------------------\\
-
   return (
     <div className="page-container">
       <div className="dashboard-container">
         <DashboardMainBar date={date} />
-        
-        <Spacer space={6} />
 
-
-        <StatusCards stats={stats} />
-
-        <Spacer space={20} />
-
-
-        <div className="cards-container">
-          <div className="stores-status">
+        <div className="board-primary">
+          <div className="stores-status-container">
             <h3>Stores Status</h3>
-            <div>
-              {
-                storesStatus?.map((store, index) => {
-                  const [name, region] = store.key.split('-')
-                  return < StoreStatus key={index} storeName={name} region={region} status={store.value} />
-                })
-              }
+            <div className="stores-cards-wrapper">
+              {storesStatus?.map((store, index) => {
+                const [name, region] = store.key.split("-");
+                return (
+                  <StoreStatus
+                    key={index}
+                    storeName={name}
+                    region={region}
+                    status={store.value}
+                  />
+                );
+              })}
+              <StoreStatus
+                storeName={"hoxfox"}
+                region={"zobra"}
+                status={"zobra"}
+              />
+              <StoreStatus
+                storeName={"hoxfox"}
+                region={"zobra"}
+                status={"zobra"}
+              />
+              <StoreStatus
+                storeName={"hoxfox"}
+                region={"zobra"}
+                status={"zobra"}
+              />
             </div>
           </div>
+          <div className="dashboard-main-data">
+            <Spacer space={6} />
+            <StatusCards stats={stats} />
+            <Spacer space={14} />
+            <div className="cards-container">
+              <div className="charts-container">
+                <div className="charts-container-1">
+                  <ChartView
+                    chartType="ColumnChart"
+                    chartData={topToppings}
+                    title="Top Ordered Toppings"
+                    width="310px"
+                    height="180px"
+                  />
+                  <ChartView
+                    chartType="ColumnChart"
+                    chartData={branchesData}
+                    title="Best Preparing Time's Branches"
+                    width="310px"
+                    height="180px"
+                  />
+                  <ChartView
+                    chartType="PieChart"
+                    chartData={disData}
+                    title="Orders Distribution"
+                    width="340px"
+                    height="200px"
+                  />
+                </div>
 
-          <Spacer space={20} />
-
-          <div className="charts-container">
-           
-           
-            <div className="charts-container-1">
-              <ChartView
-                chartType="ColumnChart"
-                chartData={topToppings}
-                title="Top Ordered Toppings"
-                width="310px"
-                height="180px"
-              />
-              <ChartView
-                chartType="ColumnChart"
-                chartData={branchesData}
-                title="Best Preparing Time's Branches"
-                width="310px"
-                height="180px"
-              />
-              <ChartView
-                chartType="PieChart"
-                chartData={disData}
-                title="Orders Distribution"
-                width="340px"
-                height="200px"
-              />
-            </div>
-
-
-            <div className="line-chart-container">
-              <Chart
-                chartType="LineChart"
-                width="100%"
-                height="200px"
-                data={orderByHour}
-                options={options}
-              />
+                <div className="line-chart-container">
+                  <Chart
+                    chartType="LineChart"
+                    width="100%"
+                    height="200px"
+                    data={orderByHour}
+                    options={options}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-
-
-
-
-
       </div>
     </div>
   );
