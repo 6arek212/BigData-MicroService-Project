@@ -3,6 +3,9 @@ const mongoose = require("mongoose")
 
 const PizzaSchema = new mongoose.Schema({
     _id: { type: String, required: true },
+    name: { type: String },
+    address: { type: String },
+    phone: { type: String },
     store_id: { type: String },
     store_name: { type: String },
     region: { type: String },

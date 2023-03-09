@@ -6,3 +6,8 @@ node_modules
 .env.local
 .env.staging
 
+bigml.log
+
+data.csv
+
+storage
