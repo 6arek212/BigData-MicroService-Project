@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import AnalyzeTable from "../../components/AnalyzeTable/AnalyzeTable";
 // import DatePicker from "react-datepicker";
 import TextField from "@mui/material/TextField";
@@ -12,17 +12,28 @@ function Analyze() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [data, setData] = useState([]);
-
+  const [working, setWorking] = useState(false);
 
   const onMakeModel = async () => {
-    await fetch('http://localhost:4000/api/train');
+    try {
+      console.log(startDate, endDate);
+      setWorking(true)
+      await fetch(`http://localhost:4000/api/train?startDate=${startDate}&endDate=${endDate}`);
+
+    } catch (e) {
+      setWorking(false)
+      console.log(e);
+    }
   }
 
   useEffect(() => {
-    const socket = io("http://localhost:4000", { transports: ["websocket"] });
+    const socket = io("http://localhost:4000", { transports: ["websocket"] })
+
     socket.on('association_model', (data) => {
       setData(data)
+      setWorking(false)
     })
+
 
     return () => {
       socket.disconnect();
@@ -55,7 +66,7 @@ function Analyze() {
             />
           </LocalizationProvider>
 
-          <button className="analyze-btn" onClick={onMakeModel}>Make Model</button>
+          <button className="analyze-btn" disabled={working} onClick={onMakeModel}>{working ? 'Working...' : 'Make Model'}</button>
         </div>
       </div>
 

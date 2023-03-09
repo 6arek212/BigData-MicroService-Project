@@ -5,8 +5,16 @@ const Pizza = require('./schemas/Pizza')
 
 const makeMonogDbActions = () => {
 
-    const fetchData = async () => {
+    const fetchData = async ({ startDate, endDate }) => {
         return await Pizza.aggregate([
+            {
+                $match:{
+                    createdAt: {
+                        $gte: startDate,
+                        $lte: endDate
+                    }
+                }
+            },
             { $unset: "__v" },
             {
                 $project: {
@@ -40,7 +48,6 @@ const makeMonogDbActions = () => {
         ])
     }
 
-    fetchData()
     return {
         fetchData
     }

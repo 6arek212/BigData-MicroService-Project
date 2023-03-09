@@ -24,6 +24,10 @@ function AnalyzeTable({ data }) {
         )
         }
 
+
+        {(!data || data.length === 0 ) &&
+          <p>No Data Yet</p>
+        }
       </ul>
     </div>
   );

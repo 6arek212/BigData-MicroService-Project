@@ -25,9 +25,10 @@ module.exports = (dbSearch, trainModel) => {
 
 
   const train = async (req, res, next) => {
+    const { startDate, endDate } = req.query
 
     try {
-      trainModel()
+      trainModel({ startDate: new Date(startDate), endDate: new Date(endDate) })
 
       res.status(200).json({
         message: "model is working",
