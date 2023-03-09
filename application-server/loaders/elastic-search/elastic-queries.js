@@ -14,8 +14,7 @@ const makeElasticSearchQueries = (client) => {
     const must = [];
     const q = {
       index: "orders",
-      // scroll: "10s",
-      sort: [{ createdAt: "desc" }],
+      sort: [{ createdAt: { "order": "desc", "unmapped_type": "date" } }],
       query: {
         bool: {
           must: must,

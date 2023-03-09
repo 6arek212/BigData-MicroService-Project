@@ -2,7 +2,7 @@ import React from "react";
 
 import "./AnalyzeTable.css";
 
-function AnalyzeTable() {
+function AnalyzeTable({ data }) {
   return (
     <div className="analyze-table-container">
       <ul className="responsive-table">
@@ -13,32 +13,17 @@ function AnalyzeTable() {
           <div className="col col-4">Confidence (%)</div>
         </li>
 
-        <TableRow
-          antecedent="פיטריות"
-          consequent="בצל"
-          support="26.69"
-          confidence="38.59"
-        />
+        {data && data.map((item, index) =>
+          <TableRow
+            key={index}
+            antecedent={item.antecedent.value}
+            consequent={item.consequent.value}
+            support={item.support}
+            confidence={item.confidence}
+          />
+        )
+        }
 
-        <TableRow
-          antecedent="פיטריות"
-          consequent="בצל"
-          support="26.69"
-          confidence="38.59"
-        />
-        <TableRow
-          antecedent="פיטריות"
-          consequent="בצל"
-          support="26.69"
-          confidence="38.59"
-        />
-
-        <TableRow
-          antecedent="פיטריות"
-          consequent="בצל"
-          support="26.69"
-          confidence="38.59"
-        />
       </ul>
     </div>
   );

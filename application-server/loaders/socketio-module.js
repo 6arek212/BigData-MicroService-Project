@@ -3,9 +3,12 @@ const { Server } = require("socket.io");
 const { setupWorker } = require("@socket.io/sticky");
 
 
+const SOCKET_IO_TOPICS = {
+    STATS: 'stats',
+    ASSOCIATION_MODEL: 'association_model',
+}
 
-
-module.exports = ({ server, onEmit }) => {
+const makeSocketIoModel = ({ server, emitters }) => {
     const socket = new Server(server)
     socket.adapter(createAdapter());
     setupWorker(socket);
@@ -13,8 +16,12 @@ module.exports = ({ server, onEmit }) => {
 
     socket.on('connection', async function (clientSocket) {
         console.log('New client connected with id = ', clientSocket.id);
-        const data = await onEmit()
-        clientSocket.emit('stats', data)
+
+        for (const em in emitters) {
+            const data = await emitters[em]()
+            clientSocket.emit(em, data)
+        }
+
 
         clientSocket.on('disconnect', function (reason) {
             console.log('A client disconnected with id = ', clientSocket.id, " reason ==> ", reason);
@@ -25,10 +32,18 @@ module.exports = ({ server, onEmit }) => {
 
 
     return {
-        emit: async () => {
-            const data = await onEmit()
-            console.log(data);
-            socket.emit('stats', data)
+        emit: async (topic) => {
+            if (!emitters[topic]) {
+                console.log('emitter not function found');
+            }
+            const data = await emitters[topic]()
+            console.log('emitting data');
+            socket.emit(topic, data)
         }
     }
+}
+
+module.exports = {
+    SOCKET_IO_TOPICS,
+    makeSocketIoModel
 }

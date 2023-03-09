@@ -1,4 +1,4 @@
-module.exports = (dbSearch) => {
+module.exports = (dbSearch, trainModel) => {
   const search = async (req, res, next) => {
     const { startDate, endDate, storeName, page, pageSize, searchDate } =
       req.query;
@@ -22,7 +22,25 @@ module.exports = (dbSearch) => {
     }
   };
 
+
+
+  const train = async (req, res, next) => {
+
+    try {
+      trainModel()
+
+      res.status(200).json({
+        message: "model is working",
+      });
+    } catch (e) {
+      next(e);
+    }
+  }
+
+
+
   return {
     search,
+    train
   };
 };

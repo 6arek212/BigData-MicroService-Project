@@ -75,21 +75,6 @@ function Dashboard() {
                   />
                 );
               })}
-              <StoreStatus
-                storeName={"hoxfox"}
-                region={"zobra"}
-                status={"zobra"}
-              />
-              <StoreStatus
-                storeName={"hoxfox"}
-                region={"zobra"}
-                status={"zobra"}
-              />
-              <StoreStatus
-                storeName={"hoxfox"}
-                region={"zobra"}
-                status={"zobra"}
-              />
             </div>
           </div>
           <div className="dashboard-main-data">
