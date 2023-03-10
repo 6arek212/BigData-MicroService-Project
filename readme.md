@@ -44,6 +44,10 @@ A microservice project that receives pizza orders from a simulator and processes
 
     MONGODB_URL
 
+    BIGML_API_KEY 
+
+    BIGML_USERNAME
+
 </br>
 
 `Run Elasticsearch in Docker `
