@@ -139,6 +139,11 @@ A microservice project that receives pizza orders from a simulator and processes
 
     - Fix: Just add to the producer a key for every message, then messages with the same key will be received in order
 
+- Kafka dublicate messages
+
+    - Fix: to be fixed 
+
+
 - Redis Automic queries
 
     - Fix: Use lua scripts, Or redisClient.multi()
