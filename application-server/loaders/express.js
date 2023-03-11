@@ -6,12 +6,15 @@ const express = require('express')
 
 
 
-module.exports = async ({ app, dbSearch , trainModel }) => {
-    const routes = require('../api/routes')(dbSearch , trainModel)
+module.exports = async ({ app, dbSearch, trainModel }) => {
+    const routes = require('../api/routes')(dbSearch, trainModel)
 
-    app.set("view engine", "ejs");
-    app.use(express.static(path.join(__dirname, "public")));
+    app.use(express.static(path.join(__dirname, '..', "public")));
 
     app.use(cors())
     app.use('/api', routes)
+    app.use('/', (req, res, next) => {
+        res.sendFile(path.join(__dirname, '..', "public", "index.html"))
+    })
+
 }

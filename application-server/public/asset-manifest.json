@@ -1,0 +1,40 @@
+{
+  "files": {
+    "main.css": "/static/css/main.f1ac8408.css",
+    "main.js": "/static/js/main.fc1222ce.js",
+    "static/media/pizza.png": "/static/media/pizza.41638ab9abda3d1d5c7d.png",
+    "static/media/clockp.png": "/static/media/clockp.bf5c385b803b3d3d462a.png",
+    "static/media/pesto-genovese.png": "/static/media/pesto-genovese.e84865a9c7af8ffee926.png",
+    "static/media/onion.png": "/static/media/onion.3ab0937898153f4f2159.png",
+    "static/media/order.png": "/static/media/order.cd4f05fcedcf1086ca26.png",
+    "static/media/branch (1).png": "/static/media/branch (1).e88a17dab6e0f974214a.png",
+    "static/media/franchise.png": "/static/media/franchise.ab3f7ebd545ff01800f7.png",
+    "static/media/blackolives.png": "/static/media/blackolives.2d8de6a8365e615c138f.png",
+    "static/media/tomato.png": "/static/media/tomato.b8416d23ec32ff330201.png",
+    "static/media/cheese.png": "/static/media/cheese.a7b8aaa8a316617f7451.png",
+    "static/media/branch.png": "/static/media/branch.e013689cd2a995df309a.png",
+    "static/media/open.png": "/static/media/open.3d5f51ea13749696b98c.png",
+    "static/media/olive.png": "/static/media/olive.587b4aec559a3d03820b.png",
+    "static/media/sausage.png": "/static/media/sausage.c3204cdeb6784b32ef62.png",
+    "static/media/tuna.png": "/static/media/tuna.2ea7de3b6f5f1f0c2277.png",
+    "static/media/pizzab.png": "/static/media/pizzab.c7f40916f1c7370fcfe4.png",
+    "static/media/response.png": "/static/media/response.398d5bf28ffbd5b1cbd0.png",
+    "static/media/branch2.png": "/static/media/branch2.97a6626e68fa0d094cd4.png",
+    "static/media/corn.png": "/static/media/corn.450fb562985c9475e557.png",
+    "static/media/preparation.png": "/static/media/preparation.0cbcb91a3c881f42bb35.png",
+    "static/media/closed.png": "/static/media/closed.032f86b232f613f59e92.png",
+    "static/media/pepper.png": "/static/media/pepper.e305911c10c3d22230cc.png",
+    "static/media/research.png": "/static/media/research.1be37a990bbb69a1a127.png",
+    "static/media/info.png": "/static/media/info.968886435979f6de068b.png",
+    "static/media/find.png": "/static/media/find.c115b49f8feedf4ddee9.png",
+    "static/media/cat.jpg": "/static/media/cat.534a05fd7c84f5a5dcb0.jpg",
+    "static/media/web-search-engine.png": "/static/media/web-search-engine.2f02a83aca69ebc18b47.png",
+    "index.html": "/index.html",
+    "main.f1ac8408.css.map": "/static/css/main.f1ac8408.css.map",
+    "main.fc1222ce.js.map": "/static/js/main.fc1222ce.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f1ac8408.css",
+    "static/js/main.fc1222ce.js"
+  ]
+}
