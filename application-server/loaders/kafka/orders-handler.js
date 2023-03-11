@@ -1,6 +1,6 @@
 const configs = require('../../configs')
 
-const kafkaOrdersConsumer = require('../../../kafka/kafka-consumer')(configs.pizzaTopic, 0)
+const kafkaOrdersConsumer = require('../../../kafka/kafka-consumer')(configs.pizzaTopic, 'ORDERS_1')
 
 
 module.exports = async (db, eventEmitter) => {

@@ -1,6 +1,6 @@
 const configs = require('../../configs')
 
-const kafkaStoresConsumer = require('../../../kafka/kafka-consumer')(configs.storesTopic, 1)
+const kafkaStoresConsumer = require('../../../kafka/kafka-consumer')(configs.storesTopic, 'STORES_1')
 
 
 
@@ -10,9 +10,9 @@ module.exports = async (db, eventEmitter) => {
 
     const storeUseCase = async ({ topic, partition, message }) => {
         try {
-            const update = JSON.parse(message.value)
-            db.updateStoreStatus(update)
-            eventEmitter({ type: 'store-update', payload: update })
+            const data = JSON.parse(message.value)
+            db.updateStoreStatus(data)
+            eventEmitter({ type: 'store-update', payload: data })
         }
         catch (e) {
             console.log(e);

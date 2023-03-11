@@ -117,12 +117,11 @@ A microservice project that receives pizza orders from a simulator and processes
 
 `version 2`
 
-<img src="https://user-images.githubusercontent.com/10331972/224487521-4b6f362a-1cc3-485a-bc68-74b56d93f77d.gif" title="Dashboard in action 1">
-
+<img src="https://user-images.githubusercontent.com/10331972/224487524-6724c31b-4b10-4642-9343-44afafe6e95e.gif"  title="Dashboard in action 1">
 
 `version 1`
 
-<img src="https://user-images.githubusercontent.com/10331972/224487524-6724c31b-4b10-4642-9343-44afafe6e95e.gif"  title="Dashboard in action 1">
+<img src="https://user-images.githubusercontent.com/10331972/224487521-4b6f362a-1cc3-485a-bc68-74b56d93f77d.gif" title="Dashboard in action 1">
 
 </br>
 

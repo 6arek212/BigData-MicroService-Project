@@ -1,5 +1,5 @@
 require('dotenv').config();
-const kafkaConsumer = require('../kafka/kafka-consumer')('kivalmel-pizza-order', 2)
+const kafkaConsumer = require('../kafka/kafka-consumer')('kivalmel-pizza-order', 'mongodb-broker2')
 const mongoose = require('mongoose')
 const Pizza = require('./Pizza')
 
@@ -14,9 +14,9 @@ const run = async () => {
 
     kafkaConsumer.run({
         eachMessage: async ({ topic, partition, message }) => {
+            const data = JSON.parse(message.value)
+            console.log(data._id,data.status);
             try {
-                const data = JSON.parse(message.value)
-                console.log(data._id);
                 if (data.status === 'in-progress') {
                     await Pizza.create(data)
                 }
