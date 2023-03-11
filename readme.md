@@ -19,13 +19,13 @@ A microservice project that receives pizza orders from a simulator and processes
 
 ### Infrastructure
 
-<img src="https://user-images.githubusercontent.com/10331972/224487482-d33a8fc4-870e-4a42-95e1-6784c564f609.png" width="600" height="400" title="Infrastructure">
+<img src="https://user-images.githubusercontent.com/10331972/224487482-d33a8fc4-870e-4a42-95e1-6784c564f609.png" title="Infrastructure">
 
 </br>
 
 ### Pipeline
 
-<img src="https://user-images.githubusercontent.com/10331972/224487490-920793ee-d935-4fa8-a381-38df294e58c3.png" width="600" height="400" title="pipline">
+<img src="https://user-images.githubusercontent.com/10331972/224487490-920793ee-d935-4fa8-a381-38df294e58c3.png"  title="pipline">
 
 ## How To Run
 
