@@ -5,7 +5,7 @@
 # Pizza Orders , Big Data And Microservices 
 
 
-<img src="https://user-images.githubusercontent.com/10331972/224487463-e143ea77-5afa-4778-817c-fee5441737cd.png" width="600" height="400" title="dashboard">
+<img src="https://user-images.githubusercontent.com/10331972/224487463-e143ea77-5afa-4778-817c-fee5441737cd.png" title="dashboard">
 
 #### A part of a university project
 
@@ -117,12 +117,12 @@ A microservice project that receives pizza orders from a simulator and processes
 
 `version 2`
 
-<img src="https://user-images.githubusercontent.com/10331972/224487521-4b6f362a-1cc3-485a-bc68-74b56d93f77d.gif" width="600" height="400" title="Dashboard in action 1">
+<img src="https://user-images.githubusercontent.com/10331972/224487521-4b6f362a-1cc3-485a-bc68-74b56d93f77d.gif" title="Dashboard in action 1">
 
 
 `version 1`
 
-<img src="https://user-images.githubusercontent.com/10331972/224487524-6724c31b-4b10-4642-9343-44afafe6e95e.gif" width="600" height="400" title="Dashboard in action 1">
+<img src="https://user-images.githubusercontent.com/10331972/224487524-6724c31b-4b10-4642-9343-44afafe6e95e.gif"  title="Dashboard in action 1">
 
 </br>
 
