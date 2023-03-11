@@ -4,7 +4,7 @@
 
 # Pizza Orders , Big Data And Microservices 
 
-![Alt text](readme-imgs/dashboard.png)
+![dashboard](https://user-images.githubusercontent.com/10331972/224487463-e143ea77-5afa-4778-817c-fee5441737cd.png)
 
 #### A part of a university project
 
@@ -18,13 +18,13 @@ A microservice project that receives pizza orders from a simulator and processes
 
 ### Infrastructure
 
-![Alt text](readme-imgs/infrastructure.png)
+![infrastructure](https://user-images.githubusercontent.com/10331972/224487482-d33a8fc4-870e-4a42-95e1-6784c564f609.png)
 
 </br>
 
 ### Pipeline
 
-![Alt text](readme-imgs/pipline.png)
+![pipline](https://user-images.githubusercontent.com/10331972/224487490-920793ee-d935-4fa8-a381-38df294e58c3.png)
 
 ## How To Run
 
@@ -115,11 +115,10 @@ A microservice project that receives pizza orders from a simulator and processes
 ## Demo
 
 `version 2`
-![Alt text](readme-imgs/dashboard-in-action2.gif)
+![dashboard-in-action](https://user-images.githubusercontent.com/10331972/224487521-4b6f362a-1cc3-485a-bc68-74b56d93f77d.gif)
 
 `version 1`
-![Alt text](readme-imgs/dashboard-in-action.gif)
-
+![dashboard-in-action2](https://user-images.githubusercontent.com/10331972/224487524-6724c31b-4b10-4642-9343-44afafe6e95e.gif)
 
 
 </br>
