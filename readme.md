@@ -63,7 +63,8 @@ A microservice project that receives pizza orders from a simulator and processes
 
 `Run Redis in Docker `
 
-      docker run --name some-redis -d redis -p 6379:6379
+    docker network create -d bridge redisnet
+    docker run -d -p 6379:6379 --name myredis --network redisnet redis
 
 </br>
 

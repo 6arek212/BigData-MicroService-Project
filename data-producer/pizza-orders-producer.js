@@ -79,8 +79,8 @@ async function delay(ms) {
 
 
 const makeOrderForStore = async ({ _id, store_name, region }) => {
-    console.log('opened store', _id, store_name, region);
-    await storeProducer.produce({ key: _id, value: { _id: _id, isOpened: 1 } })
+    console.log('opened store', _id, store_name, '--', region);
+    await storeProducer.produce({ key: _id, value: { _id: _id, isOpened: 1, createdAt: new Date() } })
 
     let end = Math.floor((Math.random() + 1) * 20)
     let i = 0
@@ -96,8 +96,8 @@ const makeOrderForStore = async ({ _id, store_name, region }) => {
         i++;
     }
 
-    await storeProducer.produce({ key: _id, value: { _id: _id, isOpened: 0 } })
-    console.log('close store', _id, store_name, region);
+    await storeProducer.produce({ key: _id, value: { _id: _id, isOpened: 0, createdAt: new Date() } })
+    console.log('close store', _id, store_name, '--', region);
 }
 
 
