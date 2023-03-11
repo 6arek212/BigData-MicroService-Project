@@ -7,6 +7,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { io } from "socket.io-client";
 import "./Analyze.css";
+import moment from 'moment'
 
 function Analyze() {
   const [startDate, setStartDate] = useState(new Date());
@@ -16,9 +17,11 @@ function Analyze() {
 
   const onMakeModel = async () => {
     try {
-      console.log(startDate, endDate);
+      const s = moment(startDate).startOf('day');
+      const e = moment(endDate).endOf('day');
+
       setWorking(true)
-      await fetch(`http://localhost:4000/api/train?startDate=${startDate}&endDate=${endDate}`);
+      await fetch(`http://localhost:4000/api/train?startDate=${s}&endDate=${e}`);
 
     } catch (e) {
       setWorking(false)
@@ -47,9 +50,9 @@ function Analyze() {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DesktopDatePicker
               label="Start date"
-              inputFormat="MM/DD/YYYY"
+              inputFormat="DD/MM/YYYY"
               value={startDate}
-              onChange={(value) => setStartDate(value)}
+              onChange={(value) => setStartDate(value.$d)}
               renderInput={(params) => (
                 <TextField {...params} size="small" sx={{ width: "15%" }} />
               )}
@@ -57,9 +60,9 @@ function Analyze() {
 
             <DesktopDatePicker
               label="End date"
-              inputFormat="MM/DD/YYYY"
+              inputFormat="DD/MM/YYYY"
               value={endDate}
-              onChange={(value) => setEndDate(value)}
+              onChange={(value) => setEndDate(value.$d)}
               renderInput={(params) => (
                 <TextField {...params} size="small" sx={{ width: "15%" }} />
               )}
