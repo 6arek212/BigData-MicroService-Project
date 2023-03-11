@@ -4,7 +4,8 @@
 
 # Pizza Orders , Big Data And Microservices 
 
-![dashboard](https://user-images.githubusercontent.com/10331972/224487463-e143ea77-5afa-4778-817c-fee5441737cd.png)
+
+<img src="https://user-images.githubusercontent.com/10331972/224487463-e143ea77-5afa-4778-817c-fee5441737cd.png" width="600" height="400" title="dashboard">
 
 #### A part of a university project
 
@@ -18,13 +19,13 @@ A microservice project that receives pizza orders from a simulator and processes
 
 ### Infrastructure
 
-![infrastructure](https://user-images.githubusercontent.com/10331972/224487482-d33a8fc4-870e-4a42-95e1-6784c564f609.png)
+<img src="https://user-images.githubusercontent.com/10331972/224487482-d33a8fc4-870e-4a42-95e1-6784c564f609.png" width="600" height="400" title="Infrastructure">
 
 </br>
 
 ### Pipeline
 
-![pipline](https://user-images.githubusercontent.com/10331972/224487490-920793ee-d935-4fa8-a381-38df294e58c3.png)
+<img src="https://user-images.githubusercontent.com/10331972/224487490-920793ee-d935-4fa8-a381-38df294e58c3.png" width="600" height="400" title="pipline">
 
 ## How To Run
 
@@ -115,11 +116,13 @@ A microservice project that receives pizza orders from a simulator and processes
 ## Demo
 
 `version 2`
-![dashboard-in-action](https://user-images.githubusercontent.com/10331972/224487521-4b6f362a-1cc3-485a-bc68-74b56d93f77d.gif)
+
+<img src="https://user-images.githubusercontent.com/10331972/224487521-4b6f362a-1cc3-485a-bc68-74b56d93f77d.gif" width="600" height="400" title="Dashboard in action 1">
+
 
 `version 1`
-![dashboard-in-action2](https://user-images.githubusercontent.com/10331972/224487524-6724c31b-4b10-4642-9343-44afafe6e95e.gif)
 
+<img src="https://user-images.githubusercontent.com/10331972/224487524-6724c31b-4b10-4642-9343-44afafe6e95e.gif" width="600" height="400" title="Dashboard in action 1">
 
 </br>
 
