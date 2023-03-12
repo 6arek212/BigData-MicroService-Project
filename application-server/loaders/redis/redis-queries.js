@@ -45,6 +45,7 @@ module.exports = async (redisClient) => {
             .expireAt(keys.ORDERS_INPROGRESS_COUNT + `:${dateOnly}`, todayEnd, 'NX')
             .expireAt(keys.ORDERS_BY_REGION + `:${dateOnly}`, todayEnd, 'NX')
             .expireAt(keys.ORDERS_BY_HOUR + `:${dateOnly}`, todayEnd, 'NX')
+            .expireAt(keys.ORDERS_ADDITION_POPULAR + `:${dateOnly}`, todayEnd, 'NX')
             .exec()
     }
 
