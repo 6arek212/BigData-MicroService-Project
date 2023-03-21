@@ -1,5 +1,5 @@
 require('dotenv').config();
-const kafkaConsumer = require('../kafka/kafka-consumer')('kivalmel-pizza-order', 'mongodb-broker2')
+const kafkaConsumer = require('../kafka/kafka-consumer')('pizza-order', 'mongodb-broker2')
 const mongoose = require('mongoose')
 const Pizza = require('./Pizza')
 

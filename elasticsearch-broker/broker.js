@@ -1,4 +1,4 @@
-const kafkaConsumer = require("../kafka/kafka-consumer")("kivalmel-pizza-order", 'elastic-broker');
+const kafkaConsumer = require("../kafka/kafka-consumer")("pizza-order", 'elastic-broker');
 const { Client } = require("@elastic/elasticsearch");
 const elasticUrl = "http://localhost:9200";
 const client = new Client({ node: elasticUrl });

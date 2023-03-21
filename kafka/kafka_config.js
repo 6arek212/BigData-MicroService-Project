@@ -1,12 +1,12 @@
 
 module.exports = {
     clientId: 'project1',
-    brokers: ['dory.srvs.cloudkafka.com:9094'],
+    brokers: ['pkc-6ojv2.us-west4.gcp.confluent.cloud:9092'],
     ssl: true,
     sasl: {
-        mechanism: 'SCRAM-SHA-512',
-        username: 'kivalmel',
-        password: 'SolTfOYwpnOnp3nUlEiRfdMzSrj1cxQP',
+        mechanism: 'PLAIN',
+        username: 'WNPNCG7ZSD5WJSRP',
+        password: 'sytlQ3M6JtuycnD4maXpWetWdjCF5FAmld6Q6GQR9v2VyWNWwe4Qr0YAb+HI8w9J',
     },
-    connectionTimeout: 6000
+    connectionTimeout: 45000
 }
